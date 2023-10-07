@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="./styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+    </style>
+</head>
+<body>
+<!-- 상단 바 -->
+<div class="top-bar">
+    <!-- 상단 바 콘텐츠 -->
+    <h1>고정 상단 바</h1>
+    <!-- 오른쪽 목차 정보 추가 -->
+    <div class="sidebar-item" onclick="showContent(1)">목차 1</div>
+    <div class="sidebar-item" onclick="showContent(2)">목차 2</div>
+    <div class="sidebar-item" onclick="showSubSidebar(3)">목차 3</div>
+    <div class="sidebar-item" onclick="showContent(4)">목차 4</div>
+    <!-- 원하는 목차 항목을 추가할 수 있습니다. -->
+</div>
+
+<!-- 좌측 목차 -->
+<div class="sidebar">
+    <div class="sidebar-item" onclick="showContent(1)">목차 1</div>
+    <div class="sidebar-item" onclick="showContent(2)">목차 2</div>
+    <div class="sidebar-item" onclick="toggleSubChapters()">목차 3</div>
+    <!-- 원하는 목차 항목을 추가할 수 있습니다. -->
+    <!-- 목차 3에 대한 하위 목차 -->
+    <ul class="sub-chapters" id="sub-chapters">
+        <li onclick="showSubContent(1)">하위 목차 1</li>
+        <li onclick="showSubContent(2)">하위 목차 2</li>
+    </ul>
+    <div class="sidebar-item" onclick="showContent(3)">목차 4</div>
+</div>
+
+<!-- 우측 컨텐츠 -->
+<div class="content">
+    <div id="content-1">
+        <!-- 목차 1에 대한 콘텐츠 -->
+        <h2>목차 1</h2>
+        <p>이곳에 목차 1에 대한 내용을 작성하세요.</p>
+    </div>
+    <div id="content-2" style="display: none;"> <!-- 처음에는 숨김 처리 -->
+        <!-- 목차 2에 대한 콘텐츠 -->
+        <h2>목차 2</h2>
+        <p>이곳에 목차 2에 대한 내용을 작성하세요.</p>
+    </div>
+    <!-- 하위 목차에 대한 콘텐츠 -->
+    <div id="sub-content-1" class="sub-content" style="display: none;">
+        <h2>하위 목차 1</h2>
+        <!-- 하위 목차 1에 대한 내용을 작성하세요. -->
+    </div>
+    <div id="sub-content-2" class="sub-content" style="display: none;">
+        <h2>하위 목차 2</h2>
+        <!-- 하위 목차 2에 대한 내용을 작성하세요. -->
+    </div>
+    <div id="content-3" style="display: none;"> <!-- 처음에는 숨김 처리 -->
+        <!-- 목차 4에 대한 콘텐츠 -->
+        <h2>목차 4</h2>
+        <p>이곳에 목차 4에 대한 내용을 작성하세요.</p>
+    </div>
+</div>
+
+
+
+
+
+<script src="./script/main.js"></script>
+
+</body>
+</html>
+
