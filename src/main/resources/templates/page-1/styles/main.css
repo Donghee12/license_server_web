@@ -1,7 +1,7 @@
 /* 상단 바 스타일 */
 .top-bar {
-    background-color: #333;
-    color: #fff;
+    background-color: #f2f2f2;
+    color: #afafaf;
     height: 10vh;
     position: fixed;
     top: 0;
@@ -16,25 +16,79 @@
     margin-right: 20px; /* 오른쪽 여백을 추가합니다. */
 }
 
-/* 좌측 목차 스타일 */
+
+/*--------------------------------------------------------------------------------------------------------------/
+
+/* 좌측 목차 영역의 스크롤 표시 제거 */
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* 오른쪽 영역 목차와 내용 분리 스타일 */
 .sidebar {
-    background-color: #eee;
-    color: #333;
-    width: 30%;
+    background-color: #333;
+    color: #ffffff;
+
+    width: 15%; /* 목차 영역 너비 (조절 가능) */
     position: fixed;
     top: 10vh;
     left: 0;
-    bottom: 0; /* 아래까지 닿도록 설정 */
+    bottom: 0;
     overflow: scroll;
+    border-right: 1px solid #ccc; /* 경계선 추가 */
 }
 
-/* 우측 컨텐츠 스타일 */
+/* 오른쪽 목차 영역의 스크롤 표시 제거 */
+.content::-webkit-scrollbar {
+    display: none;
+}
+
 .content {
-    margin-left: 30%; /* 좌측 목차 너비만큼 마진 추가 */
-    margin-top: 10vh; /* 상단 바 높이만큼 마진 추가 */
+    margin-left: 17%; /* 목차 영역과 동일한 너비로 설정 */
+    margin-top: 20vh;
     padding: 20px;
+    overflow-y: scroll; /* 내용 영역에만 스크롤 가능하도록 설정 */
+    height: 90vh; /* 내용 영역 높이를 화면 높이의 90%로 설정 (조절 가능) */
+    scrollbar-width: none; /* Firefox에 대한 스크롤 표시 제거 */
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.2);
+    background-color: #f2f2f2; /* 배경색을 얕은 회색으로 설정 */
+    margin-right: 3%;
 }
 
+/* 스크롤바가 나타났을 때의 스타일 (Firefox에 대한 스크롤 표시 제거) */
+.content::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+/*--------------------------------------------오른쪽 영역 바로 위 상단 바------------------------------------------------------------------/
+
+/* .small-content 스타일 */
+.small-content {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    margin-left: 15%;
+    position: fixed;
+    top: 10vh; /* 상단 바의 높이만큼 아래로 위치 */
+    left: 0;
+    right: 0; /* 화면 전체 너비로 설정 */
+    padding: 20px;
+    background-color: #ffffff;
+    z-index: 2; /* 상단 바 위에 표시 */
+    overflow: hidden; /* 텍스트가 넘어가지 않도록 가림 */
+}
+
+/* .small-content 내의 h2 스타일 */
+.small-content h2 {
+    margin: 0;
+    font-size: 18px; /* 글자 크기 조절 */
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+}
+
+
+
+/*--------------------------------------------------------------------------------------------------------------/
+
+ */
 /* 각 목차 항목 스타일 */
 .sidebar-item {
     margin: 10px;
@@ -50,3 +104,40 @@
 .sub-sidebar {
     margin-left: 20px; /* 들여쓰기 */
 }
+
+/* 목차 항목 앞의 점 표시 제거 */
+.sub-chapters {
+    list-style-type: none;
+}
+.sub-chapters li:hover {
+    background-color: #ccc; /* 원하는 배경색으로 변경 */
+    cursor: pointer;
+}
+
+
+/*!* 각 목차 항목에 다른 이미지 추가 *!*/
+/*.sidebar-item:nth-child(1)::before {*/
+/*    content: url('1.png'); !* 목차 1에 대한 이미지 경로를 설정 *!*/
+/*    display: inline-block; !* 인라인 블록 요소로 설정하여 텍스트와 같은 줄에 표시 *!*/
+/*    width: 16px; !* 이미지의 폭을 16px로 조절 (원하는 크기로 변경) *!*/
+/*    height: 16px; !* 이미지의 높이를 16px로 조절 (원하는 크기로 변경) *!*/
+/*    margin-right: 10px; !* 이미지와 텍스트 사이의 간격 조절 *!*/
+/*}*/
+
+/*.sidebar-item:nth-child(2)::before {*/
+/*    content: url('2.png'); !* 목차 2에 대한 이미지 경로를 설정 *!*/
+/*    display: inline-block; !* 인라인 블록 요소로 설정하여 텍스트와 같은 줄에 표시 *!*/
+/*    width: 16px; !* 이미지의 폭을 16px로 조절 (원하는 크기로 변경) *!*/
+/*    height: 16px; !* 이미지의 높이를 16px로 조절 (원하는 크기로 변경) *!*/
+/*    margin-right: 10px; !* 이미지와 텍스트 사이의 간격 조절 *!*/
+/*}*/
+
+/*.sidebar-item:nth-child(3)::before {*/
+/*    content: url('3.png'); !* 목차 3에 대한 이미지 경로를 설정 *!*/
+/*    display: inline-block; !* 인라인 블록 요소로 설정하여 텍스트와 같은 줄에 표시 *!*/
+/*    width: 16px; !* 이미지의 폭을 16px로 조절 (원하는 크기로 변경) *!*/
+/*    height: 16px; !* 이미지의 높이를 16px로 조절 (원하는 크기로 변경) *!*/
+/*    margin-right: 10px; !* 이미지와 텍스트 사이의 간격 조절 *!*/
+/*}*/
+
+/*!* 나머지 목차 항목에 대한 이미지도 위와 같이 설정 *!*/

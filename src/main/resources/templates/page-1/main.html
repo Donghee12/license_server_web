@@ -16,7 +16,6 @@
     <!-- 오른쪽 목차 정보 추가 -->
     <div class="sidebar-item" onclick="showContent(1)">목차 1</div>
     <div class="sidebar-item" onclick="showContent(2)">목차 2</div>
-    <div class="sidebar-item" onclick="showSubSidebar(3)">목차 3</div>
     <div class="sidebar-item" onclick="showContent(4)">목차 4</div>
     <!-- 원하는 목차 항목을 추가할 수 있습니다. -->
 </div>
@@ -25,18 +24,31 @@
 <div class="sidebar">
     <div class="sidebar-item" onclick="showContent(1)">목차 1</div>
     <div class="sidebar-item" onclick="showContent(2)">목차 2</div>
-    <div class="sidebar-item" onclick="toggleSubChapters()">목차 3</div>
-    <!-- 원하는 목차 항목을 추가할 수 있습니다. -->
-    <!-- 목차 3에 대한 하위 목차 -->
-    <ul class="sub-chapters" id="sub-chapters">
-        <li onclick="showSubContent(1)">하위 목차 1</li>
-        <li onclick="showSubContent(2)">하위 목차 2</li>
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters1')">대제목 1</div>
+    <!-- 대제목 1에 대한 하위 목차 -->
+    <ul class="sub-chapters" id="sub-chapters1">
+        <li onclick="showSubContent(1, '대제목 1', 'Custom Text 1')">Custom Text 1</li>
+        <li onclick="showSubContent(2, '대제목 1', 'Custom Text 2')">Custom Text 2</li>
     </ul>
-    <div class="sidebar-item" onclick="showContent(3)">목차 4</div>
+
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters2')">대제목 2</div>
+    <!-- 대제목 2에 대한 하위 목차 -->
+    <ul class="sub-chapters" id="sub-chapters2">
+        <li onclick="showSubContent(3, '대제목 2', 'Custom Text 3')">Custom Text 3</li>
+        <li onclick="showSubContent(4, '대제목 2', 'Custom Text 4')">Custom Text 4</li>
+    </ul>
+
+    <div class="sidebar-item" onclick="showContent(4)">목차 5</div>
+    <div class="sidebar-item" onclick="showContent(5)">목차 6</div>
+    <div class="sidebar-item" onclick="showContent(6)">목차 7</div>
 </div>
 
 <!-- 우측 컨텐츠 -->
+<div class="small-content">
+    <h2 id="small-content-title">home</h2>
+</div>
 <div class="content">
+
     <div id="content-1">
         <!-- 목차 1에 대한 콘텐츠 -->
         <h2>목차 1</h2>
@@ -49,23 +61,42 @@
     </div>
     <!-- 하위 목차에 대한 콘텐츠 -->
     <div id="sub-content-1" class="sub-content" style="display: none;">
-        <h2>하위 목차 1</h2>
-        <!-- 하위 목차 1에 대한 내용을 작성하세요. -->
+        <h2>Custom Text 1</h2>
+        <p>Custom Text 1의 내용을 여기에 작성하세요.</p>
     </div>
     <div id="sub-content-2" class="sub-content" style="display: none;">
-        <h2>하위 목차 2</h2>
-        <!-- 하위 목차 2에 대한 내용을 작성하세요. -->
+        <h2>Custom Text 2</h2>
+        <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
+    </div>
+    <div id="sub-content-3" class="sub-content" style="display: none;">
+        <h2>Custom Text 3</h2>
+        <p>Custom Text 3의 내용을 여기에 작성하세요.</p>
+    </div>
+    <div id="sub-content-4" class="sub-content" style="display: none;">
+        <h2>Custom Text 4</h2>
+        <p>Custom Text 4의 내용을 여기에 작성하세요.</p>
     </div>
     <div id="content-3" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
         <h2>목차 4</h2>
         <p>이곳에 목차 4에 대한 내용을 작성하세요.</p>
     </div>
+    <div id="content-4" style="display: none;"> <!-- 처음에는 숨김 처리 -->
+        <!-- 목차 4에 대한 콘텐츠 -->
+        <h2>목차 5</h2>
+        <p>이곳에 목차 5에 대한 내용을 작성하세요.</p>
+    </div>
+    <div id="content-5" style="display: none;"> <!-- 처음에는 숨김 처리 -->
+        <!-- 목차 4에 대한 콘텐츠 -->
+        <h2>목차 6</h2>
+        <p>이곳에 목차 6에 대한 내용을 작성하세요.</p>
+    </div>
+    <div id="content-6" style="display: none;"> <!-- 처음에는 숨김 처리 -->
+        <!-- 목차 4에 대한 콘텐츠 -->
+        <h2>목차 7</h2>
+        <p>이곳에 목차 7에 대한 내용을 작성하세요.</p>
+    </div>
 </div>
-
-
-
-
 
 <script src="./script/main.js"></script>
 
