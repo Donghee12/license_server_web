@@ -22,25 +22,29 @@
 
 <!-- 좌측 목차 -->
 <div class="sidebar">
-    <div class="sidebar-item" onclick="showContent(1)">목차 1</div>
-    <div class="sidebar-item" onclick="showContent(2)">목차 2</div>
-    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters1')">대제목 1</div>
+    <div class="sidebar-item" onclick="showContent(1)">DashBoard</div>
+    <div class="sidebar-item" onclick="showContent(2)">Download Software</div>
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters1')">Products</div>
     <!-- 대제목 1에 대한 하위 목차 -->
     <ul class="sub-chapters" id="sub-chapters1">
-        <li onclick="showSubContent(1, '대제목 1', 'Custom Text 1')">Custom Text 1</li>
-        <li onclick="showSubContent(2, '대제목 1', 'Custom Text 2')">Custom Text 2</li>
+        <li onclick="showSubContent(1, 'Products', 'View All Products')">View All Products</li>
+        <li onclick="showSubContent(2, 'Products', 'Add new Product')">Add new Product</li>
     </ul>
 
-    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters2')">대제목 2</div>
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters2')">License</div>
     <!-- 대제목 2에 대한 하위 목차 -->
     <ul class="sub-chapters" id="sub-chapters2">
-        <li onclick="showSubContent(3, '대제목 2', 'Custom Text 3')">Custom Text 3</li>
-        <li onclick="showSubContent(4, '대제목 2', 'Custom Text 4')">Custom Text 4</li>
+        <li onclick="showSubContent(3, 'Licensce', 'License List')">License List</li>
+        <li onclick="showSubContent(4, 'Licensce', 'Add License')">Add License</li>
     </ul>
 
-    <div class="sidebar-item" onclick="showContent(4)">목차 5</div>
-    <div class="sidebar-item" onclick="showContent(5)">목차 6</div>
-    <div class="sidebar-item" onclick="showContent(6)">목차 7</div>
+    <div class="sidebar-item" onclick="showContent(4)">Purchase Requests</div>
+    <div class="sidebar-item" onclick="showContent(5)">Payment History</div>
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters3')">Clients</div>
+    <ul class="sub-chapters" id="sub-chapters3">
+        <li onclick="showSubContent(5, 'Clients', 'View All Clients')">View All Clients</li>
+    </ul>
+    <div class="sidebar-item" onclick="showContent(6)">User Accounts</div>
 </div>
 
 <!-- 우측 컨텐츠 -->
@@ -51,49 +55,193 @@
 
     <div id="content-1">
         <!-- 목차 1에 대한 콘텐츠 -->
-        <h2>목차 1</h2>
-        <p>이곳에 목차 1에 대한 내용을 작성하세요.</p>
+        <h2>Dashboard</h2>
+
+        <div class="button-grid">
+            <div class="button">No of expired licenses</div>
+            <div class="button">No of Clients</div>
+            <div class="button">Pending Key Req</div>
+            <div class="button">Appected Key Req</div>
+            <div class="button">Count of Products</div>
+            <div class="button">Download exe</div>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>UserName</th>
+                    <th>Registered Date</th>
+                    <th>Phone Number</th>
+                    <th>Country</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 여기에 데이터를 동적으로 추가할 예정 -->
+                </tbody>
+            </table>
+        </div>
+
     </div>
     <div id="content-2" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 2에 대한 콘텐츠 -->
-        <h2>목차 2</h2>
+        <h2>Download Software</h2>
         <p>이곳에 목차 2에 대한 내용을 작성하세요.</p>
     </div>
     <!-- 하위 목차에 대한 콘텐츠 -->
     <div id="sub-content-1" class="sub-content" style="display: none;">
-        <h2>Custom Text 1</h2>
+        <h2>View All Products</h2>
         <p>Custom Text 1의 내용을 여기에 작성하세요.</p>
     </div>
     <div id="sub-content-2" class="sub-content" style="display: none;">
-        <h2>Custom Text 2</h2>
+        <h2>Add new Products</h2>
         <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
     </div>
     <div id="sub-content-3" class="sub-content" style="display: none;">
-        <h2>Custom Text 3</h2>
-        <p>Custom Text 3의 내용을 여기에 작성하세요.</p>
+        <h2>License List</h2>
+        <div class="search-container">
+            <input type="text" placeholder="검색할 키를 입력하세요">
+            <button class="search-button">검색</button>
+        </div>
+        <table class="license-table">
+            <thead>
+            <tr>
+                <th>License Key</th>
+                <th>Product Name</th>
+                <th>Days Validity</th>
+                <th>Max No Users</th>
+                <th>User Count</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 동적으로 채워질 내용 -->
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button class="prev-button">이전</button>
+            <button class="next-button">다음</button>
+        </div>
+
     </div>
     <div id="sub-content-4" class="sub-content" style="display: none;">
-        <h2>Custom Text 4</h2>
-        <p>Custom Text 4의 내용을 여기에 작성하세요.</p>
+        <h2>Add License</h2>
+        <form>
+            <div class="form-group">
+                <label for="product">Product</label>
+                <select id="product" name="product" >
+                    <option value="product1">Product 1</option>
+                    <option value="product2">Product 2</option>
+                    <!-- 원하는 제품 항목 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="licenseKey">License Key</label>
+                <select id="licenseKey" name="licenseKey">
+                    <option value="key1">Key 1</option>
+                    <option value="key2">Key 2</option>
+                    <!-- 원하는 라이선스 키 항목 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="daysValidity">Days Valid</label>
+                <select id="daysValidity" name="daysValidity">
+                    <option value="30">30 Days</option>
+                    <option value="60">60 Days</option>
+                    <!-- 원하는 유효 기간 항목 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="maxUsers">Max Users</label>
+                <select id="maxUsers" name="maxUsers">
+                    <option value="1">1 User</option>
+                    <option value="5">5 Users</option>
+                    <!-- 원하는 최대 사용자 항목 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <!-- 원하는 상태 항목 추가 -->
+                </select>
+            </div>
+
+            <!-- 버튼 추가 -->
+            <button type="button" id="cancelButton">Cancel</button>
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
     </div>
+
     <div id="content-3" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
-        <h2>목차 4</h2>
+        <h2>Purchase Requests</h2>
         <p>이곳에 목차 4에 대한 내용을 작성하세요.</p>
     </div>
     <div id="content-4" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
-        <h2>목차 5</h2>
-        <p>이곳에 목차 5에 대한 내용을 작성하세요.</p>
+        <h2>Purchase Requests</h2>
+        <p>이곳에 목차 4에 대한 내용을 작성하세요.</p>
     </div>
     <div id="content-5" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
-        <h2>목차 6</h2>
-        <p>이곳에 목차 6에 대한 내용을 작성하세요.</p>
+        <h2>Payment History</h2>
+        <p>이곳에 목차 5에 대한 내용을 작성하세요.</p>
+    </div>
+    <div id="sub-content-5" class="sub-content" style="display: none;">
+        <h2>View All Clients</h2>
+        <div class="search-group">
+            <div class="search-container2">
+                <input type="text" placeholder="검색할 이름을 입력하세요">
+                <button class="search-button">검색</button>
+            </div>
+            <div class="search-container2">
+                <input type="text" placeholder="검색할 이메일을 입력하세요">
+                <button class="search-button">검색</button>
+            </div>
+            <div class="search-container2">
+                <input type="text" placeholder="검색할 키를 입력하세요">
+                <button class="search-button">검색</button>
+            </div>
+        </div>
+        <div class="user-table-container">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Country</th>
+                    <th>Place</th>
+                    <th>CND</th>
+                    <th>HardWareID</th>
+                    <th>License KEY</th>
+                    <th>User</th>
+                    <th>Activated</th>
+                    <th>Status</th>
+                    <th>Date Registered</th>
+                    <th>Expriy Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 여기에 데이터를 동적으로 추가할 예정 -->
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
     <div id="content-6" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
-        <h2>목차 7</h2>
+        <h2>User Accounts</h2>
         <p>이곳에 목차 7에 대한 내용을 작성하세요.</p>
     </div>
 </div>

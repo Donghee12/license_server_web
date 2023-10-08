@@ -31,7 +31,7 @@ function toggleSubChapters(subChaptersId) {
 // 페이지 로드 시 처음에는 하위 목차를 숨김
 toggleSubChapters('sub-chapters1');
 toggleSubChapters('sub-chapters2');
-
+toggleSubChapters('sub-chapters3');
 
 // 하위 목차를 클릭하면 해당 내용을 오른쪽 콘텐츠에 표시하는 함수
 function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
