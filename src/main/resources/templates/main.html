@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="../../../../../../Desktop/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -44,7 +44,11 @@
     <ul class="sub-chapters" id="sub-chapters3">
         <li onclick="showSubContent(5, 'Clients', 'View All Clients')">View All Clients</li>
     </ul>
-    <div class="sidebar-item" onclick="showContent(6)">User Accounts</div>
+    <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters4')">User Accounts</div>
+    <ul class="sub-chapters" id="sub-chapters4">
+        <li onclick="showSubContent(6, 'User Accounts', 'View All Clients')">View All User Accounts</li>
+        <li onclick="showSubContent(7, 'User Accounts', 'View All Clients')">Add User Accounts</li>
+    </ul>
 </div>
 
 <!-- 우측 컨텐츠 -->
@@ -193,7 +197,34 @@
     <div id="content-5" style="display: none;"> <!-- 처음에는 숨김 처리 -->
         <!-- 목차 4에 대한 콘텐츠 -->
         <h2>Payment History</h2>
-        <p>이곳에 목차 5에 대한 내용을 작성하세요.</p>
+        <!-- 검색 폼 -->
+        <form th:action="@{/payment-history}" method="get">
+            <div class="search-container">
+                <input type="text" placeholder="검색할 이름을 입력하세요">
+                <button class="search-button">검색</button>
+            </div>
+        </form>
+
+        <!-- 결제 이력 테이블 -->
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>거래 일자</th>
+                <th>거래 금액</th>
+                <th>결제 방법</th>
+                <th>거래 상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 결제 이력 데이터를 동적으로 표시 -->
+            <tr th:each="paymentHistory : ${paymentHistoryList}">
+                <td th:text="${#dates.format(paymentHistory.transactionDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${paymentHistory.amount}"></td>
+                <td th:text="${paymentHistory.paymentMethod}"></td>
+                <td th:text="${paymentHistory.status}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div id="sub-content-5" class="sub-content" style="display: none;">
         <h2>View All Clients</h2>
@@ -239,14 +270,17 @@
 
 
     </div>
-    <div id="content-6" style="display: none;"> <!-- 처음에는 숨김 처리 -->
-        <!-- 목차 4에 대한 콘텐츠 -->
-        <h2>User Accounts</h2>
-        <p>이곳에 목차 7에 대한 내용을 작성하세요.</p>
+    <div id="sub-content-6" class="sub-content" style="display: none;">
+        <h2>View All User Account</h2>
+        <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
+    </div>
+    <div id="sub-content-7" class="sub-content" style="display: none;">
+        <h2>Add New Account</h2>
+        <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
     </div>
 </div>
 
-<script src="../../../../../../Desktop/script/main.js"></script>
+<script src="/script/main.js"></script>
 
 </body>
 </html>

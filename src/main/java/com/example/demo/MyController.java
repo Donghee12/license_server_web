@@ -18,4 +18,11 @@ public class MyController {
         model.addAttribute("members", members);
         return "members";
     }
+
+    @GetMapping("/main") // 이 부분을 변경
+    public String loadMainPage(Model model) {
+        // ...
+        return "main"; // main.html을 렌더링
+    }
+
 }
