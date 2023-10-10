@@ -261,7 +261,7 @@
 /*--------------------------------------------------------------------------------------------------------------/ */
 
 /* Cancle 버튼 스타일 */
-button#cancelButton {
+.cancelButton {
     background-color: red; /* 빨간색 배경 */
     color: white; /* 텍스트 색상 */
     padding: 10px 20px; /* 크기 조절 */
@@ -271,7 +271,7 @@ button#cancelButton {
 }
 
 /* Submit 버튼 스타일 */
-button#submitButton {
+.submitButton {
     background-color: lightblue; /* 옅은 파란색 배경 */
     color: white; /* 텍스트 색상 */
     padding: 10px 20px; /* 크기 조절 */

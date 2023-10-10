@@ -46,6 +46,9 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
     content.style.display = 'none';
   });
 
+  //스크롤 위치 초기화
+  window.scrollTo(0, 0);
+
 
   // 클릭한 하위 목차 콘텐츠만 보이도록 설정
   var subContentId = "sub-content-" + subChapterNumber;
@@ -59,7 +62,32 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
   var contentTitle = parentChapterName + ' > ' + subChapterName;
   smallContentTitle.textContent = contentTitle;
 
+  var contentTitle = document.getElementById('small-content-title');
+  switch (contentId) {
+    case 1:
+      contentTitle.textContent = 'Dashboard';
+      break;
+    case 2:
+      contentTitle.textContent = 'License List';
+      break;
+      // 다른 목차에 대한 처리도 추가
+  }
 }
+
+
+// 라이센스 리스트 버튼 클릭 시 이벤트 핸들러
+document.getElementById('license-list-button').addEventListener('click', function () {
+  // License List 목차로 이동
+  showContent(3);
+});
+
+// 클라이언트 수 버튼 클릭 시 이벤트 핸들러 (예시)
+document.getElementById('client-count-button').addEventListener('click', function () {
+  // 클라이언트 수 목차로 이동
+  showContent(2); // 이 숫자는 목차에 따라 변경해야 합니다.
+});
+
+
 
 //---------------------------------------------------------------------------------------------//
 
@@ -80,3 +108,5 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
     updateSmallContentTitle(title);
   });
 });
+
+

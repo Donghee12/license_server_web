@@ -62,13 +62,14 @@
         <h2>Dashboard</h2>
 
         <div class="button-grid">
-            <div class="button">No of expired licenses</div>
-            <div class="button">No of Clients</div>
-            <div class="button">Pending Key Req</div>
-            <div class="button">Appected Key Req</div>
-            <div class="button">Count of Products</div>
-            <div class="button">Download exe</div>
+            <div class="button" id="license-list-button">라이센스 리스트</div>
+            <div class="button" id="client-count-button">클라이언트 수</div>
+            <div class="button" id="pending-key-req-button">Pending Key Req</div>
+            <div class="button" id="accepted-key-req-button">Accepted Key Req</div>
+            <div class="button" id="product-count-button">제품 개수</div>
+            <div class="button" id="download-exe-button">Download exe</div>
         </div>
+
         <div class="table-container">
             <table class="data-table">
                 <thead>
@@ -170,8 +171,8 @@
             </div>
 
             <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status">
+                <label for="status-license">Status</label>
+                <select id="status-license" name="status">
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                     <!-- 원하는 상태 항목 추가 -->
@@ -179,8 +180,8 @@
             </div>
 
             <!-- 버튼 추가 -->
-            <button type="button" id="cancelButton">Cancel</button>
-            <button type="submit" id="submitButton">Submit</button>
+            <button type="button" id="btn-l-c" class="cancelButton">Cancel</button>
+            <button type="submit" id="btn-l-s" class="submitButton">Submit</button>
         </form>
     </div>
 
@@ -272,12 +273,74 @@
     </div>
     <div id="sub-content-6" class="sub-content" style="display: none;">
         <h2>View All User Account</h2>
-        <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
+        <div class="search-container">
+            <input type="text" placeholder="검색할 사용자를 입력하세요">
+            <button class="search-button">검색</button>
+        </div>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe@example.com</td>
+                <td>Administrator</td>
+                <td>Active</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            <!-- 다른 사용자들의 정보도 여기에 추가 -->
+            </tbody>
+        </table>
     </div>
     <div id="sub-content-7" class="sub-content" style="display: none;">
-        <h2>Add New Account</h2>
-        <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
+        <h2>Add User Account</h2>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="administrator">Administrator</option>
+                    <option value="user">User</option>
+                    <!-- 원하는 역할 항목 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status-user">Status</label>
+                <select id="status-user" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <!-- 원하는 상태 항목 추가 -->
+                </select>
+            </div>
+
+            <!-- 버튼 추가 -->
+            <button type="button" id="btn-u-c" class="cancelButton">Cancel</button>
+            <button type="submit" id="btn-u-s" class="submitButton">Submit</button>
+        </form>
     </div>
+
 </div>
 
 <script src="/script/main.js"></script>
