@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -123,6 +124,18 @@
             </thead>
             <tbody>
             <!-- 동적으로 채워질 내용 -->
+            <tr th:each="licenseInfo : ${licenseInfoList}">
+                <td th:text="${licenseInfo.licenseKey}"></td>
+                <td th:text="${licenseInfo.productName}"></td>
+                <td th:text="${licenseInfo.daysValidity}"></td>
+                <td th:text="${licenseInfo.maxNoUsers}"></td>
+                <td th:text="${licenseInfo.userCount}"></td>
+                <td th:text="${licenseInfo.status}"></td>
+                <!-- 필요한 액션 버튼 또는 링크를 여기에 추가 -->
+                <td>
+                    <button th:attr="data-licenseId=${licenseInfo.licenseKey}" class="delete-button">Delete</button>
+                </td>
+            </tr>
             </tbody>
         </table>
         <div class="pagination">
@@ -218,12 +231,12 @@
             </thead>
             <tbody>
             <!-- 결제 이력 데이터를 동적으로 표시 -->
-            <tr th:each="paymentHistory : ${paymentHistoryList}">
-                <td th:text="${#dates.format(paymentHistory.transactionDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${paymentHistory.amount}"></td>
-                <td th:text="${paymentHistory.paymentMethod}"></td>
-                <td th:text="${paymentHistory.status}"></td>
-            </tr>
+<!--            <tr th:each="paymentHistory : ${paymentHistoryList}">-->
+<!--                <td th:text="${#dates.format(paymentHistory.transactionDate, 'yyyy-MM-dd')}"></td>-->
+<!--                <td th:text="${paymentHistory.amount}"></td>-->
+<!--                <td th:text="${paymentHistory.paymentMethod}"></td>-->
+<!--                <td th:text="${paymentHistory.status}"></td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>

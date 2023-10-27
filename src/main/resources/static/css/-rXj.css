@@ -1,0 +1,192 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 147.2rem;
+}.item-1--Nt1 {
+  width: 100%;
+  height: 83.4rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+}
+.item-1--Nt1 .line-8-Hk5 {
+  width: 24.4002rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 2.6999rem;
+  top: 30.75rem;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.item-1--Nt1 .line-7-cnM {
+  width: 24rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 3.1rem;
+  top: 25.4rem;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.item-1--Nt1 .item--kdf {
+  width: 9.5rem;
+  height: 1.4rem;
+  position: absolute;
+  left: 3.1rem;
+  top: 22rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.7;
+  color: rgba(0, 0, 0, 0.6999999881);
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.item-1--Nt1 .item--Rzh {
+  width: 9.5rem;
+  height: 1.4rem;
+  position: absolute;
+  left: 3.1rem;
+  top: 27.4rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.7;
+  color: rgba(0, 0, 0, 0.6999999881);
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.item-1--Nt1 .item--vgZ {
+  width: 6.1rem;
+  height: 3rem;
+  position: absolute;
+  left: 3.1rem;
+  top: 16rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #000000;
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.item-1--Nt1 .frame-49-dL5 {
+  box-sizing: border-box;
+  padding: 6.3rem 20.099rem 27.8rem 13.4rem;
+  width: 115.7rem;
+  height: 75.6rem;
+  position: absolute;
+  left: 27.1rem;
+  top: 7.7rem;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.item-1--Nt1 .frame-49-dL5 .item--j8D {
+  margin: 0rem 0rem 1.7rem 0.1rem;
+  max-width: 28rem;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.6666666667;
+  color: #000000;
+  font-family: Inter, 'Source Sans Pro';
+}
+.item-1--Nt1 .frame-49-dL5 .item--j8D .item--j8D-sub-0 {
+}
+.item-1--Nt1 .frame-49-dL5 .item--j8D .item--j8D-sub-1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 3.3333333333;
+  color: rgba(0, 0, 0, 0.6999999881);
+  font-family: Inter, 'Source Sans Pro';
+}
+.item-1--Nt1 .frame-49-dL5 .auto-group-ni6u-mDK {
+  width: 82.2012rem;
+  height: 29.8rem;
+  position: relative;
+  object-fit: contain;
+  vertical-align: top;
+}
+.item-1--Nt1 .frame-57-6WV {
+  box-sizing: border-box;
+  padding: 1.4rem 1.8rem 1.8rem 1.1rem;
+  width: 144.4rem;
+  height: 8.3rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+}
+.item-1--Nt1 .frame-57-6WV .ninja-zrm {
+  margin-right: 5.8rem;
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1.2575;
+  color: #053b50;
+  font-family: Fredoka One, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .frame-57-6WV .item--jZT {
+  margin: 0rem 5.7rem 0.3rem 0rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.7;
+  color: #000000;
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .frame-57-6WV .item--FXo {
+  margin: 0rem 90.676rem 0.3rem 0rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.7;
+  color: #000000;
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .frame-57-6WV .vector-Mqj {
+  margin: 0rem 4.783rem 0.6rem 0rem;
+  width: 3.041rem;
+  height: 3.1rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .frame-57-6WV .doorbell-h8u {
+  margin: 0rem 2.5rem 0.6rem 0rem;
+  width: 3.9rem;
+  height: 3.9rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .frame-57-6WV .item--d2Z {
+  margin-bottom: 0.7rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.7;
+  color: #000000;
+  font-family: Inter, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.item-1--Nt1 .line-6-wZ3 {
+  width: 24.0015rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 1.6998rem;
+  top: 20.225rem;
+  background-color: #000000;
+}

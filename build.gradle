@@ -29,6 +29,11 @@ dependencies {
 
     //DataBase
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    //lombok
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
 }
 
 tasks.named('test') {

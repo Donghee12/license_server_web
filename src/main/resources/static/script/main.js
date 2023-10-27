@@ -109,4 +109,33 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
   });
 });
 
+/*-------------------------------------------------------------------------------------------------------------*/
+// deleteLicense 함수 정의
+function deleteLicense(licenseKey) {
+  if (confirm('정말로 삭제하시겠습니까?')) {
+    // Ajax를 사용하여 서버에 삭제 요청을 보냅니다.
+    $.ajax({
+      url: '/delete-license',
+      type: 'POST',
+      data: { licenseId: licenseKey },
+      success: function (data) {
+        // 삭제에 성공하면 테이블에서 해당 레코드를 제거합니다.
+        if (data === '삭제 성공') {
+          var row = $("td:contains(" + licenseKey + ")").closest("tr");
+          row.remove();
+        }
+      },
+      error: function () {
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    });
+  }
+}
 
+// 페이지 로드 시 delete 버튼 클릭 이벤트 설정
+$(document).ready(function () {
+  $('.delete-button').click(function () {
+    var licenseKey = $(this).data('licenseId');
+    deleteLicense(licenseKey);
+  });
+});
