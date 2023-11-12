@@ -1,19 +1,16 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.List;
 
 @Controller
 public class MyController {
     @Autowired
     private MemberRepository memberRepository;
-
-    @Autowired
-    private LicenseInfoRepository licenseInfoRepository;
 
     @GetMapping("/members")
     public String listMembers(Model model) {
@@ -22,11 +19,10 @@ public class MyController {
         return "members";
     }
 
-    @GetMapping("/main")
-    public String getLicenseInfo(Model model) {
-        List<LicenseInfo> licenseInfoList = licenseInfoRepository.findAll();
-        model.addAttribute("licenseInfoList", licenseInfoList);
-        return "main"; // Thymeleaf 템플릿 이름
+    @GetMapping("/main") // 이 부분을 변경
+    public String loadMainPage(Model model) {
+        // ...
+        return "main"; // main.html을 렌더링
     }
 
 }
