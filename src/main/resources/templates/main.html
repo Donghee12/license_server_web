@@ -137,10 +137,11 @@
                 <td th:text="${licenseInfo.userCount}"></td>
                 <td th:text="${licenseInfo.status}"></td>
                 <td>
-                    <form class="delete-form" th:attr="data-licenseId=${licenseInfo.licenseKey}">
+                    <form class="delete-form" th:attr="data-licenseId=${licenseInfo.licenseKey}" th:action="'/delete-license/' + ${licenseInfo.licenseKey}" method="post">
                         <button type="submit" class="delete-button">Delete</button>
                     </form>
                 </td>
+
             </tr>
             </tbody>
         </table>

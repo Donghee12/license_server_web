@@ -107,19 +107,22 @@ $(document).ready(function() {
     e.preventDefault();
 
     // 라이선스 ID 가져오기
-    var licenseId = $(this).data("licenseId");
+    var licenseId = $(this).attr("data-licenseId")
 
     // CSRF 토큰 가져오기 (JSP에서 사용한 경우)
     var csrfToken = $("input[name='_csrf']").val();
-
+    // 값이 비어있거나 undefined인 경우 처리
+    if (!licenseId) {
+      console.error("License ID is undefined or empty.");
+      return;
+    }
     // 또는 직접 설정한 경우
     // var csrfToken = "your_csrf_token_value";
 
     // AJAX 요청 보내기
     $.ajax({
-      type: "POST",
-      url: "/delete-license",
-      data: { licenseId: licenseId },
+      type: "DELETE", // HTTP 메소드를 DELETE로 설정
+      url: "/delete-license/" + licenseId,
       beforeSend: function(xhr) {
         // CSRF 토큰을 헤더에 추가
         xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
@@ -136,4 +139,5 @@ $(document).ready(function() {
     });
   });
 });
+
 
