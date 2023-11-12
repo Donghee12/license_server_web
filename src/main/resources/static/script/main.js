@@ -61,17 +61,6 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
   var smallContentTitle = document.getElementById('small-content-title');
   var contentTitle = parentChapterName + ' > ' + subChapterName;
   smallContentTitle.textContent = contentTitle;
-
-  var contentTitle = document.getElementById('small-content-title');
-  switch (contentId) {
-    case 1:
-      contentTitle.textContent = 'Dashboard';
-      break;
-    case 2:
-      contentTitle.textContent = 'License List';
-      break;
-      // 다른 목차에 대한 처리도 추가
-  }
 }
 
 
@@ -110,32 +99,41 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
 });
 
 /*-------------------------------------------------------------------------------------------------------------*/
-// deleteLicense 함수 정의
-function deleteLicense(licenseKey) {
-  if (confirm('정말로 삭제하시겠습니까?')) {
-    // Ajax를 사용하여 서버에 삭제 요청을 보냅니다.
+
+
+$(document).ready(function() {
+  $(".delete-form").submit(function(e) {
+    // 폼 전송 막기
+    e.preventDefault();
+
+    // 라이선스 ID 가져오기
+    var licenseId = $(this).data("licenseId");
+
+    // CSRF 토큰 가져오기 (JSP에서 사용한 경우)
+    var csrfToken = $("input[name='_csrf']").val();
+
+    // 또는 직접 설정한 경우
+    // var csrfToken = "your_csrf_token_value";
+
+    // AJAX 요청 보내기
     $.ajax({
-      url: '/delete-license',
-      type: 'POST',
-      data: { licenseId: licenseKey },
-      success: function (data) {
-        // 삭제에 성공하면 테이블에서 해당 레코드를 제거합니다.
-        if (data === '삭제 성공') {
-          var row = $("td:contains(" + licenseKey + ")").closest("tr");
-          row.remove();
-        }
+      type: "POST",
+      url: "/delete-license",
+      data: { licenseId: licenseId },
+      beforeSend: function(xhr) {
+        // CSRF 토큰을 헤더에 추가
+        xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
       },
-      error: function () {
-        alert('삭제 중 오류가 발생했습니다.');
+      success: function(response) {
+        // 성공적으로 처리된 경우
+        console.log(response);
+        // 여기에서 필요한 화면 업데이트 등을 수행할 수 있습니다.
+      },
+      error: function(error) {
+        // 오류가 발생한 경우
+        console.log(error);
       }
     });
-  }
-}
-
-// 페이지 로드 시 delete 버튼 클릭 이벤트 설정
-$(document).ready(function () {
-  $('.delete-button').click(function () {
-    var licenseKey = $(this).data('licenseId');
-    deleteLicense(licenseKey);
   });
 });
+

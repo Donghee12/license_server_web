@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <title>License Server</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
 
-    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
 <!-- 상단 바 -->
 <div class="top-bar">
     <!-- 상단 바 콘텐츠 -->
@@ -122,8 +125,10 @@
                 <th>Action</th>
             </tr>
             </thead>
+
             <tbody>
             <!-- 동적으로 채워질 내용 -->
+
             <tr th:each="licenseInfo : ${licenseInfoList}">
                 <td th:text="${licenseInfo.licenseKey}"></td>
                 <td th:text="${licenseInfo.productName}"></td>
@@ -131,9 +136,10 @@
                 <td th:text="${licenseInfo.maxNoUsers}"></td>
                 <td th:text="${licenseInfo.userCount}"></td>
                 <td th:text="${licenseInfo.status}"></td>
-                <!-- 필요한 액션 버튼 또는 링크를 여기에 추가 -->
                 <td>
-                    <button th:attr="data-licenseId=${licenseInfo.licenseKey}" class="delete-button">Delete</button>
+                    <form class="delete-form" th:attr="data-licenseId=${licenseInfo.licenseKey}">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -357,7 +363,7 @@
 </div>
 
 <script src="/script/main.js"></script>
-
 </body>
+
 </html>
 
