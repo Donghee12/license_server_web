@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.LicenseInfo;
+import com.example.demo.dataclass.LicenseInfo;
 import com.example.demo.repository.LicenseInfoRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ LicenseService {
     private LicenseInfoRepository licenseInfoRepository; // LicenseInfoRepository 주입
 
     @Transactional
-    public boolean deleteLicense(String licenseId) {
+    public void deleteLicense(String licenseId) {
         try {
             // 라이선스 삭제 로직을 수행
             Optional<LicenseInfo> optionalLicense = licenseInfoRepository.findById(licenseId);
@@ -25,15 +25,11 @@ LicenseService {
             if (optionalLicense.isPresent()) {
                 LicenseInfo licenseInfo = optionalLicense.get();
                 licenseInfoRepository.delete(licenseInfo);
-                return true;
-            } else {
-                return false; // 해당 라이선스가 없는 경우
             }
         } catch (Exception e) {
             // 로그 등을 활용하여 예외 처리
             Logger logger = LoggerFactory.getLogger(LicenseService.class);
             logger.error("라이선스 삭제 중 오류 발생", e);
-            return false;
         }
     }
 }

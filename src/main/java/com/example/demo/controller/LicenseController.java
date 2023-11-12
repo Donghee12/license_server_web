@@ -12,10 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequestMapping("/api/licenses")
 public class LicenseController {
 
-
-    @Autowired
-    private LicenseInfoRepository licenseRepository;
-
     private final LicenseService licenseService;
     @Autowired
     public LicenseController(LicenseService licenseService) {
@@ -27,7 +23,7 @@ public class LicenseController {
         try {
             // 삭제 로직
             licenseService.deleteLicense(licenseKey);
-            return ResponseEntity.ok("Deleted successfully");
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
         } catch (Exception e) {
             // 예외 처리
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting license");

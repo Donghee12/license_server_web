@@ -103,41 +103,30 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
 
 $(document).ready(function() {
   $(".delete-form").submit(function(e) {
-    // 폼 전송 막기
     e.preventDefault();
 
-    // 라이선스 ID 가져오기
-    var licenseId = $(this).attr("data-licenseId")
+    var licenseKey = $(this).attr("data-licenseId");
+    var confirmed = confirm("정말로 삭제하시겠습니까?");
 
-    // CSRF 토큰 가져오기 (JSP에서 사용한 경우)
-    var csrfToken = $("input[name='_csrf']").val();
-    // 값이 비어있거나 undefined인 경우 처리
-    if (!licenseId) {
-      console.error("License ID is undefined or empty.");
-      return;
+    if (confirmed) {
+      // 삭제 로직 수행
+      $.ajax({
+        type: "DELETE",
+        url: "/api/licenses/" +licenseKey,
+
+        success: function(response) {
+          console.log(response);
+          // 삭제 성공 후의 처리
+          window.location.reload();
+        },
+        error: function(error) {
+          console.log(error);
+          // 오류 발생 시의 처리
+        }
+      });
     }
-    // 또는 직접 설정한 경우
-    // var csrfToken = "your_csrf_token_value";
-
-    // AJAX 요청 보내기
-    $.ajax({
-      type: "DELETE", // HTTP 메소드를 DELETE로 설정
-      url: "/delete-license/" + licenseId,
-      beforeSend: function(xhr) {
-        // CSRF 토큰을 헤더에 추가
-        xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
-      },
-      success: function(response) {
-        // 성공적으로 처리된 경우
-        console.log(response);
-        // 여기에서 필요한 화면 업데이트 등을 수행할 수 있습니다.
-      },
-      error: function(error) {
-        // 오류가 발생한 경우
-        console.log(error);
-      }
-    });
   });
+
 });
 
 

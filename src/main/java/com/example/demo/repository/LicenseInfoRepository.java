@@ -1,5 +1,5 @@
 package com.example.demo.repository;
-import com.example.demo.LicenseInfo;
+import com.example.demo.dataclass.LicenseInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LicenseInfoRepository extends JpaRepository<LicenseInfo, String> {
