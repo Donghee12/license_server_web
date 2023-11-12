@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
 
 CREATE TABLE license_info (
 license_key VARCHAR(255) NOT NULL,
@@ -19,5 +13,29 @@ PRIMARY KEY (license_key)
 INSERT INTO license_info (license_key, product_name, days_validity, max_no_users, user_count, status)
 VALUES
 ('license6', 'Product E', 90, 300, 250, 'Inactive');
-</body>
-</html>
+
+spring.datasource.url=jdbc:mysql://localhost:3306/users?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=1234
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# Thymeleaf
+spring.thymeleaf.cache=false
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.encoding=UTF-8
+
+spring.main.scan.base-packages=com.example.demo
+server.address=0.0.0.0
+server.port=8080
+
+spring.application.name=myapp
+logging.level.org.springframework.security=DEBUG
+
+
+
+
