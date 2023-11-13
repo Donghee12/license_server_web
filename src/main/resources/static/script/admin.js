@@ -10,7 +10,8 @@ function showContent(contentId) {
   });
 
   // 선택한 콘텐츠만 보여줌
-  document.getElementById('content-' + contentId).style.display = 'block';
+  var selectedContent =document.getElementById('content-' + contentId);
+  selectedContent.style.display = 'block';
 
   //스크롤 위치 초기화
   window.scrollTo(0, 0);
@@ -67,13 +68,17 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
 // 라이센스 리스트 버튼 클릭 시 이벤트 핸들러
 document.getElementById('license-list-button').addEventListener('click', function () {
   // License List 목차로 이동
-  showContent(3);
+  showSubContent(3);
+  var smallContentTitle = document.getElementById('small-content-title');
+  smallContentTitle.textContent = 'License > License List';
 });
 
 // 클라이언트 수 버튼 클릭 시 이벤트 핸들러 (예시)
 document.getElementById('client-count-button').addEventListener('click', function () {
   // 클라이언트 수 목차로 이동
-  showContent(2); // 이 숫자는 목차에 따라 변경해야 합니다.
+  showSubContent(6);
+  var smallContentTitle = document.getElementById('small-content-title');
+  smallContentTitle.textContent = 'Clients > View All Clients';
 });
 
 
@@ -102,8 +107,9 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
 
 
 $(document).ready(function() {
-  $(".delete-form").submit(function(e) {
-    e.preventDefault();
+  $(".delete-form").submit(function(event) {
+    event.preventDefault();
+
 
     var licenseKey = $(this).attr("data-licenseId");
     var confirmed = confirm("정말로 삭제하시겠습니까?");
@@ -129,4 +135,130 @@ $(document).ready(function() {
 
 });
 
+/*-----------------------------------------------------------------------------------------*/
+document.addEventListener('DOMContentLoaded', function () {
+  var table = document.getElementById("license-table");
 
+  if (!table) {
+    console.error("Table element not found");
+
+  }
+
+  // 나머지 코드...
+});
+
+//라이센스 검색창
+function filterLicenseTable(event) {
+  if (event) {
+    event.preventDefault();
+  }
+
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("license-search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("license-table");
+
+  // 유효성 검사
+  if (!table) {
+    console.error("Table element not found");
+    return;
+  }
+
+  tr = table.getElementsByTagName("tr");
+
+  // 유효성 검사
+  if (!tr || !tr.length) {
+    console.error("No rows found in the table");
+    return;
+  }
+
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+
+    // 유효성 검사
+    if (!td) {
+      console.error("No cells found in the row", tr[i]);
+      continue;
+    }
+
+    txtValue = td.textContent || td.innerText;
+
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+}
+
+
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+// 페이지 로드 시 초기 표시되는 라이센스 리스트 개수
+var licensesPerPage = 6;
+
+// 현재 페이지와 전체 페이지 수를 저장하는 변수
+var currentPage = 1;
+var totalPage;
+
+// 라이센스 리스트 테이블의 모든 행을 숨기는 함수
+function hideAllRows() {
+  var rows = document.querySelectorAll('.license-table tbody tr');
+  rows.forEach(function (row) {
+    row.style.display = 'none';
+  });
+}
+
+// 현재 페이지에 해당하는 행만 보이도록 하는 함수
+function showRowsForCurrentPage() {
+  hideAllRows();
+
+  var startIndex = (currentPage - 1) * licensesPerPage;
+  var endIndex = startIndex + licensesPerPage;
+  var rows = document.querySelectorAll('.license-table tbody tr');
+
+  for (var i = startIndex; i < endIndex && i < rows.length; i++) {
+    rows[i].style.display = '';
+  }
+}
+
+// 이전 페이지로 이동하는 함수
+function goToPrevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    showRowsForCurrentPage();
+  }
+}
+
+// 다음 페이지로 이동하는 함수
+function goToNextPage(event) {
+  if (currentPage < totalPage) {
+    currentPage++;
+    showRowsForCurrentPage();
+  }
+
+  // 페이지 이동을 막기 위해 이벤트의 기본 동작을 막음
+  if (event) {
+    event.preventDefault();
+  }
+}
+
+// 페이지 로드 시 초기 설정
+document.addEventListener('DOMContentLoaded', function () {
+  var rows = document.querySelectorAll('.license-table tbody tr');
+  totalPage = Math.ceil(rows.length / licensesPerPage);
+
+  // 페이지 로드 시 처음에는 첫 페이지의 행들만 보이도록 설정
+  showRowsForCurrentPage();
+});
+
+// 이전 버튼 클릭 시 이벤트 핸들러
+document.querySelector('.prev-button').addEventListener('click', function () {
+  goToPrevPage();
+});
+
+// 다음 버튼 클릭 시 이벤트 핸들러
+document.querySelector('.next-button').addEventListener('click', function () {
+  goToNextPage();
+});

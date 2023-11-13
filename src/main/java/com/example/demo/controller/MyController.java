@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.dataclass.LicenseInfo;
 import com.example.demo.repository.LicenseInfoRepository;
-import com.example.demo.dataclass.Member;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,18 +18,13 @@ public class MyController {
     @Autowired
     private LicenseInfoRepository licenseInfoRepository;
 
-    @GetMapping("/members")
-    public String listMembers(Model model) {
-        List<Member> members = memberRepository.findAll();
-        model.addAttribute("members", members);
-        return "members";
-    }
 
-    @GetMapping("/main")
+
+    @GetMapping("/admin")
     public String loadMainPage(Model model) {
         List<LicenseInfo> licenseInfoList = licenseInfoRepository.findAll();
         model.addAttribute("licenseInfoList", licenseInfoList);
-        return "main";
+        return "admin";
     }
 
 
