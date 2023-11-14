@@ -4,26 +4,15 @@ import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.MemberService;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Member;
-import java.security.SecureRandom;
-
-
-import java.security.Security;
-import java.util.Base64;
 import java.util.Optional;
-import java.util.Random;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -42,7 +31,6 @@ public class MemberController {
 
             return "main";
         }
-
         Optional<MemberEntity> existingMember = memberRepository.findByMemberEmail(userEmail);
         if (existingMember.isPresent() && existingMember.get().getRandomMixedValue() != null){
             String message = "이미 구독중 입니다";
@@ -74,7 +62,7 @@ public class MemberController {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
 
-        return "index";
+        return "login";
     }
 
     @GetMapping("/member/sub")
