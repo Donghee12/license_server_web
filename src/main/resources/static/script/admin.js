@@ -136,58 +136,33 @@ $(document).ready(function() {
 });
 
 /*-----------------------------------------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', function () {
-  var table = document.getElementById("license-table");
 
-  if (!table) {
-    console.error("Table element not found");
-
-  }
-
-  // 나머지 코드...
-});
 
 //라이센스 검색창
-function filterLicenseTable(event) {
-  if (event) {
-    event.preventDefault();
-  }
 
+function filterLicenseTable() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("license-search");
   filter = input.value.toUpperCase();
-  table = document.getElementById("license-table");
-
-  // 유효성 검사
-  if (!table) {
-    console.error("Table element not found");
-    return;
-  }
-
+  table = document.querySelector(".license-table");
   tr = table.getElementsByTagName("tr");
-
-  // 유효성 검사
-  if (!tr || !tr.length) {
-    console.error("No rows found in the table");
-    return;
-  }
 
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[0];
-
-    // 유효성 검사
-    if (!td) {
-      console.error("No cells found in the row", tr[i]);
-      continue;
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
     }
+  }
+}
 
-    txtValue = td.textContent || td.innerText;
-
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      tr[i].style.display = "";
-    } else {
-      tr[i].style.display = "none";
-    }
+function handleSearchKeyPress(event) {
+  if (event.key === "Enter") {
+    filterLicenseTable();
   }
 }
 

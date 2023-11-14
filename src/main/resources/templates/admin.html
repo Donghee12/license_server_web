@@ -110,8 +110,8 @@
     <div id="sub-content-3" class="sub-content" style="display: none;">
         <h2>License List</h2>
         <div class="search-container">
-            <input type="text" id="license-search" placeholder="검색할 키를 입력하세요">
-            <button class="search-button" onclick="filterLicenseTable(event)">검색</button>
+            <input type="text" id="license-search" placeholder="검색할 키를 입력하세요" onkeydown="handleSearchKeyPress(event)">
+            <button class="search-button" onclick="filterLicenseTable()">검색</button>
         </div>
         <table class="license-table">
             <thead>

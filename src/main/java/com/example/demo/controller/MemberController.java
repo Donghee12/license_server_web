@@ -1,19 +1,65 @@
 package com.example.demo.controller;
 
 import com.example.demo.dataclass.MemberDTO;
+import com.example.demo.dataclass.MemberEntity;
+import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.MemberService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Member;
+import java.security.SecureRandom;
+
+
+import java.security.Security;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.Random;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     // 생성자 주입 자동적으로 만들어 준다
     private final MemberService memberService;
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @GetMapping("generateRandomMixedValue")
+    public String generateRandomMixedValue(Model model, HttpSession session){
+        String userEmail = (String) session.getAttribute("loginEmail");
+
+        if (userEmail == null){
+
+
+
+            return "main";
+        }
+
+        Optional<MemberEntity> existingMember = memberRepository.findByMemberEmail(userEmail);
+        if (existingMember.isPresent() && existingMember.get().getRandomMixedValue() != null){
+            String message = "이미 구독중 입니다";
+            model.addAttribute("message",message);
+            return "sub";
+        }
+
+        String randomValue = memberService.generateAndSaveRandomValue(userEmail);
+
+        model.addAttribute("randomValue",randomValue);
+
+        String message = "구독 완료";
+        model.addAttribute("message",message);
+
+        return "sub";
+    }
+
 
     //회원가입 페이지 출력 요청
     @GetMapping("/member/save")
@@ -29,6 +75,12 @@ public class MemberController {
         memberService.save(memberDTO);
 
         return "index";
+    }
+
+    @GetMapping("/member/sub")
+    public String sub()
+    {
+        return "sub";
     }
 
 
