@@ -3,7 +3,9 @@ package com.example.demo.service;
 
 import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
+import com.example.demo.dataclass.UserEntity;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepositoy;
+
+    private final UserRepository userRepository;
     public void save(MemberDTO memberDTO) {
         // 1. dto -> entity 변환
         // 2. repositroy의 save 메소드 호출
@@ -94,14 +98,46 @@ public class MemberService {
             member.setRandomMixedValue(randomValue);
             memberRepositoy.save(member);
 
+            // 랜덤 값이 있으면 status를 active로 업데이트
+            if (randomValue != null) {
+                updateUserStatus(member.getUser());
+            }
         });
     }
+    private void updateUserStatus(UserEntity userEntity) {
+        if (userEntity != null) {
+            userEntity.updateStatus();
+            userRepository.save(userEntity);
+        }
+    }
+
     private String generateRandomMixedValue() {
         byte[] randomBytes = new byte[16];
         new SecureRandom().nextBytes(randomBytes);
         return Base64.getEncoder().encodeToString(randomBytes);
     }
 
+    public void subscribe(String userEmail) {
+        String randomValue = generateRandomMixedValue();
+        updaeRamvalue(userEmail, randomValue);
+
+        // 구독 후 상태 업데이트
+        updateStatus(userEmail);
+    }
+
+    private void updateStatus(String userEmail) {
+        Optional<MemberEntity> optionalMember = memberRepositoy.findByMemberEmail(userEmail);
+
+        optionalMember.ifPresent(member -> {
+            // 멤버 엔티티에서 유저 엔티티 참조 가져오기
+            UserEntity userEntity = member.getUser();
+
+            if (userEntity != null) {
+                userEntity.updateStatus();
+                userRepository.save(userEntity);
+            }
+        });
+    }
 
 
 

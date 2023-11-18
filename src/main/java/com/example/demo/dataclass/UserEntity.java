@@ -2,6 +2,7 @@ package com.example.demo.dataclass;
 
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,11 @@ public class UserEntity {
     @Column
     private String status;
 
+    @OneToOne
+    @JoinColumn(name = "member_id", unique = true)
+    private MemberEntity memberEntity;
+
+
     public static UserEntity fromMemberEntity(MemberEntity memberEntity) {
         try {
             UserEntity userEntity = new UserEntity();
@@ -35,6 +41,10 @@ public class UserEntity {
             userEntity.setName(getNameFromEmail(memberEntity.getMemberEmail()));
             userEntity.setRole("user");
             userEntity.setStatus(memberEntity.getRandomMixedValue() != null ? "active" : "inactive");
+
+            // MemberEntity와 양방향 관계 설정
+            userEntity.setMemberEntity(memberEntity);
+
             return userEntity;
         } catch (Exception e) {
             System.out.println("Failed to convert MemberEntity to UserEntity: " + e.getMessage());
@@ -48,4 +58,7 @@ public class UserEntity {
         }
         return null;
     }
+
+
+
 }

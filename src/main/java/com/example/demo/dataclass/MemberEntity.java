@@ -24,10 +24,19 @@ public class MemberEntity {
     @Column
     private String randomMixedValue;
 
+    @OneToOne(mappedBy = "memberEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UserEntity user;
+
+
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+
+        // UserEntity 에도 저장
+        UserEntity userEntity = UserEntity.fromMemberEntity(memberEntity);
+        memberEntity.setUser(userEntity);
+
         return memberEntity;
     }
 
@@ -39,5 +48,7 @@ public class MemberEntity {
 
         return memberEntity;
     }
-
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 }
