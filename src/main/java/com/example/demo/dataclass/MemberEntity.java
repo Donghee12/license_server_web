@@ -1,7 +1,6 @@
 package com.example.demo.dataclass;
 
 
-import com.example.demo.dataclass.MemberDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "member_table")
 @NoArgsConstructor
 public class MemberEntity {
     @Id //pk 지정
@@ -26,7 +24,6 @@ public class MemberEntity {
     @Column
     private String randomMixedValue;
 
-
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
@@ -39,6 +36,7 @@ public class MemberEntity {
         memberEntity.setId(memberDTO.getId());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+
         return memberEntity;
     }
 

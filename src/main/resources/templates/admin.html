@@ -310,15 +310,19 @@
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>johndoe@example.com</td>
-                <td>Administrator</td>
-                <td>Active</td>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.memberEmail}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.status}"></td>
+                <!-- Add other fields as needed -->
                 <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <!-- Add buttons for edit and delete -->
+                    <button th:onclick="'editUser(\'' + ${user.id} + '\')'">Edit</button>
+                    <button th:onclick="'deleteUser(\'' + ${user.id} + '\')'">Delete</button>
                 </td>
+            </tr>
             </tr>
             <!-- 다른 사용자들의 정보도 여기에 추가 -->
             </tbody>

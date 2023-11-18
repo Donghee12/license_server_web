@@ -20,7 +20,7 @@ public class MyController {
 
 
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/licenses_info")
     public String loadMainPage(Model model) {
         List<LicenseInfo> licenseInfoList = licenseInfoRepository.findAll();
         model.addAttribute("licenseInfoList", licenseInfoList);

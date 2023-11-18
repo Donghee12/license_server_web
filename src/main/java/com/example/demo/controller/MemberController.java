@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
+import com.example.demo.dataclass.UserEntity;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +23,8 @@ public class MemberController {
     private final MemberService memberService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("generateRandomMixedValue")
     public String generateRandomMixedValue(Model model, HttpSession session){
@@ -118,11 +123,6 @@ public class MemberController {
         System.out.println("memberEmail = " + memberEmail);
         String checkResult = memberService.emailCheck(memberEmail);
         return checkResult;
-        //        if (checkResult != null){
-//            return "ok";
-//        }else {
-//            return "no";
-//        }
     }
     @GetMapping("/member")
     public ResponseEntity<Boolean> checkDuplicate(@RequestParam("memberEmail")String memberEmail){
@@ -130,6 +130,15 @@ public class MemberController {
         return ResponseEntity.ok(isUnique);
     }
 
+
+    // 관리자 페이지에 대한 디비
+    // UserEntity 사용
+    @GetMapping("/admin")
+    public String getAdminPage(Model model) {
+        List<UserEntity> userList = userRepository.findAll(); // userRepository로 변경
+        model.addAttribute("userList", userList);
+        return "admin";
+    }
 }
 
 
