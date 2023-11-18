@@ -37,7 +37,7 @@ public class MemberService {
 
 
     public MemberDTO login(MemberDTO memberDTO) {
-    // 1. 회원이 입력한 이메일로 DB에서 조회릏하
+        // 1. 회원이 입력한 이메일로 DB에서 조회릏하
         // 2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
         Optional<MemberEntity> byMemberEmail =
                 memberRepositoy.findByMemberEmail(memberDTO.getMemberEmail());
@@ -104,6 +104,7 @@ public class MemberService {
             }
         });
     }
+
     private void updateUserStatus(UserEntity userEntity) {
         if (userEntity != null) {
             userEntity.updateStatus();

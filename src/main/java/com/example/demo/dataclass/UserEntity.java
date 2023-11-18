@@ -59,6 +59,19 @@ public class UserEntity {
         return null;
     }
 
+    // 구독 시 상태를 업데이트하는 메서드
+    @Transactional
+    public void updateStatus() {
 
+        if (this.memberEntity.getRandomMixedValue() != null) {
+            this.status = "active";
+            System.out.println("RandomMixedValue exists. Setting status to active.");
+        } else {
+            this.status = "inactive";
+            System.out.println("RandomMixedValue is null. Setting status to inactive.");
+        }
+
+
+    }
 
 }
