@@ -24,7 +24,7 @@ public class MyController {
     public String loadMainPage(Model model) {
         List<LicenseInfo> licenseInfoList = licenseInfoRepository.findAll();
         model.addAttribute("licenseInfoList", licenseInfoList);
-        return "admin";
+        return "admin/licenses_info";
     }
 
 

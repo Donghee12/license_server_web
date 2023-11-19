@@ -32,6 +32,7 @@ public class LicenseController {
             // 예외 처리
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting license");
         }
+
     }
     // 라이선스 검색을 위한 엔드포인트 추가
     @GetMapping("/search")
@@ -42,6 +43,6 @@ public class LicenseController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
-    }
 
+    }
 }

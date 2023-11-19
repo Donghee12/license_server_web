@@ -63,15 +63,37 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
   var contentTitle = parentChapterName + ' > ' + subChapterName;
   smallContentTitle.textContent = contentTitle;
 }
-
+// 왼쪽 하위 목차인 라이선스 리스트 클릭 시 이벤트 핸들러
+document.querySelector('#sub-chapters2 li:nth-child(1)').addEventListener('click', function () {
+  location.href = '/admin/licenses_info';
+});
+document.querySelector('#sub-chapters4 li:nth-child(1)').addEventListener('click', function () {
+  location.href = '/admin/user_info';
+});
 
 // 라이센스 리스트 버튼 클릭 시 이벤트 핸들러
 document.getElementById('license-list-button').addEventListener('click', function () {
-  // License List 목차로 이동
-  showSubContent(3);
-  var smallContentTitle = document.getElementById('small-content-title');
-  smallContentTitle.textContent = 'License > License List';
+  // 라이센스 리스트 버튼 클릭할 때 호출되는 함수
+
+  // 페이지의 URL을 변경 (history.pushState 사용)
+  history.pushState({}, 'License List', '/admin/licenses_info');
+
+  // 변경된 URL에 따라 작업 수행
+  showLicenseList();
+
+  function showLicenseList() {
+    // License List 목차로 이동
+    showSubContent(3);
+    var smallContentTitle = document.getElementById('small-content-title');
+    smallContentTitle.textContent = 'License > License List';
+
+    location.reload();
+  }
+
+  // 페이지의 상태를 새로 고침하지 않고 업데이트
+  e.preventDefault();  // 이벤트의 기본 동작을 중단
 });
+
 
 // 클라이언트 수 버튼 클릭 시 이벤트 핸들러 (예시)
 document.getElementById('client-count-button').addEventListener('click', function () {

@@ -133,11 +133,11 @@ public class MemberController {
 
     // 관리자 페이지에 대한 디비
     // UserEntity 사용
-    @GetMapping("/admin")
+    @GetMapping("/admin/user_info")
     public String getAdminPage(Model model) {
         List<UserEntity> userList = userRepository.findAll(); // userRepository로 변경
         model.addAttribute("userList", userList);
-        return "admin";
+        return "admin/user_info";
     }
 }
 
