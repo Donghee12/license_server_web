@@ -187,3 +187,60 @@ document.querySelector('.prev-button').addEventListener('click', function () {
 document.querySelector('.next-button').addEventListener('click', function () {
     goToNextPage();
 });
+
+
+/*-----------------------------------------------유저 삭제 코드 ---------------------------------------------------------*/
+$(document).ready(function() {
+    $(".delete-form").submit(function(event) {
+        event.preventDefault();
+
+        var userId = $(this).attr("data-userId");
+        var confirmed = confirm("정말로 삭제하시겠습니까?");
+
+        if (confirmed) {
+            // 삭제 로직 수행
+            $.ajax({
+                type: "DELETE",
+                url: "/api/users/" + userId,
+
+                success: function(response) {
+                    console.log(response);
+                    // 삭제 성공 후의 처리
+                    window.location.reload();
+                },
+                error: function(error) {
+                    console.log(error);
+                    // 오류 발생 시의 처리
+                }
+            });
+        }
+    });
+});
+
+
+function editUser(userId) {
+    $.get("/api/users/" + userId, function(user) {
+        // 가져온 사용자 정보를 콘솔에 출력
+        console.log("User Object:", user);
+
+        if (user) {
+            // data-field 속성을 이용하여 폼 요소의 필드를 지정
+            $("#username").val(user.name);
+            $("#email").val(user.memberEmail);
+
+            // Role 값을 선택하는 부분
+            $("#role").val(user.role);
+
+            // Status 값을 선택하는 부분
+            $("#status-user").val(user.status);
+
+            // Edit 폼을 표시
+            showSubContent(7);
+            var smallContentTitle = document.getElementById('small-content-title');
+            smallContentTitle.textContent = 'User Accounts > Edit User Accounts';
+        } else {
+            console.log("User object is empty or undefined.");
+        }
+    });
+}
+

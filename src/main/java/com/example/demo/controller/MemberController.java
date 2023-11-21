@@ -1,21 +1,41 @@
 package com.example.demo.controller;
 
+
 import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
 import com.example.demo.dataclass.UserEntity;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.MemberService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.MediaType;
+import java.io.IOException;
+import java.lang.reflect.Member;
+import java.security.SecureRandom;
+
+
+import java.security.Security;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -27,29 +47,25 @@ public class MemberController {
     private UserRepository userRepository;
 
     @GetMapping("generateRandomMixedValue")
-    public String generateRandomMixedValue(Model model, HttpSession session){
+    public String generateRandomMixedValue(Model model, HttpSession session,@RequestParam("months") int months){
         String userEmail = (String) session.getAttribute("loginEmail");
 
         if (userEmail == null){
-
-
-
             return "main";
         }
         Optional<MemberEntity> existingMember = memberRepository.findByMemberEmail(userEmail);
+
         if (existingMember.isPresent() && existingMember.get().getRandomMixedValue() != null){
             String message = "이미 구독중 입니다";
             model.addAttribute("message",message);
             return "sub";
         }
-
-        String randomValue = memberService.generateAndSaveRandomValue(userEmail);
-
+        String randomValue = memberService.generateAndSaveRandomValueWithExpiration(userEmail,months);
         model.addAttribute("randomValue",randomValue);
 
-        String message = "구독 완료";
-        model.addAttribute("message",message);
 
+        String message = months + "달 구독 완료";
+        model.addAttribute("message",message);
         return "sub";
     }
 
@@ -129,7 +145,53 @@ public class MemberController {
         boolean isUnique = memberService.isEmailUnique(memberEmail);
         return ResponseEntity.ok(isUnique);
     }
+    @GetMapping("/member/download")
+    public String download(){
+        return "download";
 
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<Resource> downloadFile() throws IOException {
+        String filePath = "C:\\Users\\JUN\\Desktop\\study\\spring.zip"; // 예시 경로
+
+        // 파일 resource 읽기
+        Resource resource = new FileSystemResource(filePath);
+        MediaType mediaType = new MediaType("application", "zip");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFilename());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(resource.contentLength())
+                .contentType(mediaType)
+                .body(resource);
+    }
+
+    @GetMapping("/member/downloadmain")
+    public String downloadmain(){
+        return "downloadmain";
+
+    }
+
+    @GetMapping("/downloadmain")
+    public ResponseEntity<Resource> downloadFile1() throws IOException {
+        String filePath = "C:\\Users\\JUN\\Desktop\\study\\spring.zip"; // 예시 경로
+
+        // 파일 resource 읽기
+        Resource resource = new FileSystemResource(filePath);
+        MediaType mediaType = new MediaType("application", "zip");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFilename());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(resource.contentLength())
+                .contentType(mediaType)
+                .body(resource);
+    }
 
     // 관리자 페이지에 대한 디비
     // UserEntity 사용

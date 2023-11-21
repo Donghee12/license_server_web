@@ -318,52 +318,60 @@
         <td th:text="${user.status}"></td>
         <!-- Add other fields as needed -->
         <td>
-          <!-- Add buttons for edit and delete -->
-          <button th:onclick="'editUser(\'' + ${user.id} + '\')'">Edit</button>
-          <button th:onclick="'deleteUser(\'' + ${user.id} + '\')'">Delete</button>
+          <form class="delete-form" th:attr="data-userId=${user.id}" th:action="'/api/users/' + ${user.id}" method="post">
+            <button type="submit" class="delete-button">Delete</button>
+          </form>
+          <form class="edit-form" th:attr="data-userId=${user.id}" th:action="'/api/users/' + ${user.id}" method="post">
+            <button type="button" class="edit-button" th:onclick="'editUser(\'' + ${user.id} + '\')'">Edit</button>
+          </form>
         </td>
       </tr>
       </tr>
       <!-- 다른 사용자들의 정보도 여기에 추가 -->
       </tbody>
     </table>
+    <div class="pagination">
+      <button class="prev-button">이전</button>
+      <button class="next-button">다음</button>
+    </div>
   </div>
+
   <div id="sub-content-7" class="sub-content" style="display: none;">
-    <h2>Add User Account</h2>
-    <form>
+    <h2>Edit User Account</h2>
+    <form id="editUserForm" method="post">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter username" required>
+        <input type="text" id="username" name="username" data-field="name" placeholder="Enter username" required>
       </div>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter email" required>
+        <input type="email" id="email" name="email" data-field="email" placeholder="Enter email" required>
       </div>
 
       <div class="form-group">
         <label for="role">Role</label>
-        <select id="role" name="role">
-          <option value="administrator">Administrator</option>
-          <option value="user">User</option>
+        <select id="role" name="role" data-field="role">
+          <option value="administrator">admin</option>
+          <option value="user">user</option>
           <!-- 원하는 역할 항목 추가 -->
         </select>
       </div>
 
       <div class="form-group">
         <label for="status-user">Status</label>
-        <select id="status-user" name="status">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
+        <select id="status-user" name="status" data-field="status">
+          <option value="active">active</option>
+          <option value="inactive">inactive</option>
           <!-- 원하는 상태 항목 추가 -->
         </select>
       </div>
 
-      <!-- 버튼 추가 -->
-      <button type="button" id="btn-u-c" class="cancelButton">Cancel</button>
-      <button type="submit" id="btn-u-s" class="submitButton">Submit</button>
+      <button type="button" id="btn-u-c" class="cancelButton" onclick="cancelEdit()">Cancel</button>
+      <button type="button" id="btn-u-s" class="submitButton" onclick="submitEdit()">Submit</button>
     </form>
   </div>
+
 
 </div>
 

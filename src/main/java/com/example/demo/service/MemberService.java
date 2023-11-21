@@ -6,32 +6,35 @@ import com.example.demo.dataclass.MemberEntity;
 import com.example.demo.dataclass.UserEntity;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Member;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-    private final MemberRepository memberRepositoy;
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
+    private final  UserRepository userRepository;
     public void save(MemberDTO memberDTO) {
         // 1. dto -> entity 변환
         // 2. repositroy의 save 메소드 호출
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
-        memberRepositoy.save(memberEntity);
+        memberRepository.save(memberEntity);
 
 
     }
 
     public boolean isEmailUnique(String memberEmail){
 
-        return !memberRepositoy.existsByMemberEmail(memberEmail);
+        return !memberRepository.existsByMemberEmail(memberEmail);
     }
 
 
@@ -40,7 +43,7 @@ public class MemberService {
         // 1. 회원이 입력한 이메일로 DB에서 조회릏하
         // 2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
         Optional<MemberEntity> byMemberEmail =
-                memberRepositoy.findByMemberEmail(memberDTO.getMemberEmail());
+                memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
         if(byMemberEmail.isPresent()){
             // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
             MemberEntity memberEntity = byMemberEmail.get();
@@ -60,7 +63,7 @@ public class MemberService {
     }
 
     public MemberDTO updateForm(String myEmail) {
-        Optional<MemberEntity> optionalMemberEntity =memberRepositoy.findByMemberEmail(myEmail);
+        Optional<MemberEntity> optionalMemberEntity =memberRepository.findByMemberEmail(myEmail);
         if (optionalMemberEntity.isPresent()){
             return MemberDTO.toMemberDTO(optionalMemberEntity.get());
         }else {
@@ -69,11 +72,11 @@ public class MemberService {
     }
 
     public void update(MemberDTO memberDTO) {
-        memberRepositoy.save(MemberEntity.toUpdateMemberEntity(memberDTO));
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
     }
 
     public String emailCheck(String memberEmail) {
-        Optional<MemberEntity> byMemberEmail = memberRepositoy.findByMemberEmail(memberEmail);
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberEmail);
         if (byMemberEmail.isPresent()){
             return null;
         }else{
@@ -81,37 +84,61 @@ public class MemberService {
         }
     }
 
-    public String generateAndSaveRandomValue(String userEmail) {
+
+    public String generateAndSaveRandomValueWithExpiration(String userEmail, int months) {
 
         String randomValue = generateRandomMixedValue();
 
-        updaeRamvalue(userEmail,randomValue);
+        LocalDateTime expirationTime = LocalDateTime.now().plus(months,ChronoUnit.MONTHS);
+
+        saveRandomValueWithExpiration(userEmail,randomValue,expirationTime);
 
         return randomValue;
     }
 
-    private void updaeRamvalue(String userEmail, String randomValue) {
 
-        Optional<MemberEntity> optionalMember = memberRepositoy.findByMemberEmail(userEmail);
+    public String generateAndSaveRandomValue(String userEmail){
+        return generateAndSaveRandomValueWithExpiration(userEmail,3);
+
+    }
+
+    private void saveRandomValueWithExpiration(String userEmail, String randomValue, LocalDateTime expirationTime) {
+        MemberEntity memberEntity = memberRepository.findByMemberEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Member no found"));
+
+        memberEntity.setRandomMixedValue(randomValue);
+        memberEntity.setSubscriptionExpirationTime(expirationTime);
+
+        memberRepository.save(memberEntity);
+
+    }
+
+    @Transactional
+    public void updateRandomValue(String userEmail, String randomValue) {
+
+        Optional<MemberEntity> optionalMember = memberRepository.findByMemberEmail(userEmail);
 
         optionalMember.ifPresent(member ->{
             member.setRandomMixedValue(randomValue);
-            memberRepositoy.save(member);
+            memberRepository.save(member);
 
             // 랜덤 값이 있으면 status를 active로 업데이트
             if (randomValue != null) {
                 updateUserStatus(member.getUser());
             }
-        });
-    }
 
+        });
+        // 추가로 로그를 통해 트랜잭션이 제대로 동작하는지 확인
+        System.out.println("Transaction committed successfully");
+    }
     private void updateUserStatus(UserEntity userEntity) {
         if (userEntity != null) {
             userEntity.updateStatus();
             userRepository.save(userEntity);
+
+            System.out.println("User status updated successfully");
         }
     }
-
     private String generateRandomMixedValue() {
         byte[] randomBytes = new byte[16];
         new SecureRandom().nextBytes(randomBytes);
@@ -120,14 +147,14 @@ public class MemberService {
 
     public void subscribe(String userEmail) {
         String randomValue = generateRandomMixedValue();
-        updaeRamvalue(userEmail, randomValue);
+        updateRandomValue(userEmail, randomValue);
 
         // 구독 후 상태 업데이트
         updateStatus(userEmail);
     }
 
     private void updateStatus(String userEmail) {
-        Optional<MemberEntity> optionalMember = memberRepositoy.findByMemberEmail(userEmail);
+        Optional<MemberEntity> optionalMember = memberRepository.findByMemberEmail(userEmail);
 
         optionalMember.ifPresent(member -> {
             // 멤버 엔티티에서 유저 엔티티 참조 가져오기

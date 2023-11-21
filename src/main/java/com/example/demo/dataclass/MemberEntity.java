@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Setter
 @Getter
@@ -23,6 +25,12 @@ public class MemberEntity {
 
     @Column
     private String randomMixedValue;
+
+    @Column(nullable = false)
+    private int subscriptionMonths;
+
+    @Column
+    private LocalDateTime subscriptionExpirationTime;
 
     @OneToOne(mappedBy = "memberEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity user;
