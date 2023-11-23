@@ -35,5 +35,12 @@ public class MemberDTO {
         memberDTO.setRandomValue(memberEntity.getRandomMixedValue());
         return memberDTO;
     }
+    // 게터 및 세터 추가
+    // 클라이언트 정보 추가
+    @Getter
+    private ClientInfoDTO clientInfo;
 
+    public void setClientInfo(ClientInfoDTO clientInfo) {
+        this.clientInfo = clientInfo;
+    }
 }

@@ -249,3 +249,11 @@ document.querySelector('.next-button').addEventListener('click', function () {
 document.querySelector('#sub-chapters4 li:nth-child(1)').addEventListener('click', function () {
     location.href = '/admin/user_info';
 });
+document.querySelector('#sub-chapters4 li:nth-child(2)').addEventListener('click', function () {
+    location.href = '/admin/user_info';
+});
+
+document.querySelector('#sub-chapters3 li:nth-child(1)').addEventListener('click', function () {
+    console.log("Clicked on clients link");
+    location.href = '/admin/clients_info';
+});

@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dataclass.ClientInfo;
 import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
 import com.example.demo.dataclass.UserEntity;
+import com.example.demo.repository.ClientInfoRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +28,21 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final  UserRepository userRepository;
+
+
+    @Transactional
+    public void saveSubscriptionTime(String userEmail, LocalDateTime subscriptionTime) {
+        try {
+            MemberEntity memberEntity = memberRepository.findByMemberEmail(userEmail)
+                    .orElseThrow(() -> new RuntimeException("Member not found"));
+
+            memberEntity.setSubscriptionTime(subscriptionTime);
+            memberRepository.save(memberEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 또는 로그로 기록
+        }
+    }
     public void save(MemberDTO memberDTO) {
         // 1. dto -> entity 변환
         // 2. repositroy의 save 메소드 호출
@@ -92,6 +112,7 @@ public class MemberService {
         LocalDateTime expirationTime = LocalDateTime.now().plus(months,ChronoUnit.MONTHS);
 
         saveRandomValueWithExpiration(userEmail,randomValue,expirationTime);
+        updateRandomValue(userEmail,randomValue);
 
         return randomValue;
     }
@@ -125,6 +146,8 @@ public class MemberService {
             // 랜덤 값이 있으면 status를 active로 업데이트
             if (randomValue != null) {
                 updateUserStatus(member.getUser());
+            }else {
+                System.out.println("RandomValue is null. updateUserStatus not called.");
             }
 
         });
@@ -135,7 +158,6 @@ public class MemberService {
         if (userEntity != null) {
             userEntity.updateStatus();
             userRepository.save(userEntity);
-
             System.out.println("User status updated successfully");
         }
     }
@@ -145,6 +167,8 @@ public class MemberService {
         return Base64.getEncoder().encodeToString(randomBytes);
     }
 
+
+    @Transactional
     public void subscribe(String userEmail) {
         String randomValue = generateRandomMixedValue();
         updateRandomValue(userEmail, randomValue);
@@ -152,6 +176,7 @@ public class MemberService {
         // 구독 후 상태 업데이트
         updateStatus(userEmail);
     }
+
 
     private void updateStatus(String userEmail) {
         Optional<MemberEntity> optionalMember = memberRepository.findByMemberEmail(userEmail);

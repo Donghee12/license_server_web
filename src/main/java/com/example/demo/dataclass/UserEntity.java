@@ -16,6 +16,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 실제 필드에 맞게 변경
+    @Getter
     @Column(unique = true)
     private String memberEmail;
 
@@ -31,6 +33,9 @@ public class UserEntity {
     @OneToOne
     @JoinColumn(name = "member_id", unique = true)
     private MemberEntity memberEntity;
+
+    @OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ClientInfo clientInfo;
 
 
     public static UserEntity fromMemberEntity(MemberEntity memberEntity) {
@@ -73,5 +78,4 @@ public class UserEntity {
 
 
     }
-
 }

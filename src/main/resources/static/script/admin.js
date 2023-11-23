@@ -67,10 +67,19 @@ function showSubContent(subChapterNumber, parentChapterName, subChapterName) {
 document.querySelector('#sub-chapters2 li:nth-child(1)').addEventListener('click', function () {
   location.href = '/admin/licenses_info';
 });
+document.querySelector('#sub-chapters2 li:nth-child(2)').addEventListener('click', function () {
+  location.href = '/admin/licenses_info';
+});
 document.querySelector('#sub-chapters4 li:nth-child(1)').addEventListener('click', function () {
   location.href = '/admin/user_info';
 });
-
+document.querySelector('#sub-chapters4 li:nth-child(2)').addEventListener('click', function () {
+  location.href = '/admin/user_info';
+});
+document.querySelector('#sub-chapters3 li:nth-child(1)').addEventListener('click', function () {
+  console.log("Clicked on clients link");
+  location.href = '/admin/clients_info';
+});
 // 라이센스 리스트 버튼 클릭 시 이벤트 핸들러
 document.getElementById('license-list-button').addEventListener('click', function () {
   // 라이센스 리스트 버튼 클릭할 때 호출되는 함수
@@ -126,136 +135,3 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
 });
 
 /*-------------------------------------------------------------------------------------------------------------*/
-
-
-$(document).ready(function() {
-  $(".delete-form").submit(function(event) {
-    event.preventDefault();
-
-
-    var licenseKey = $(this).attr("data-licenseId");
-    var confirmed = confirm("정말로 삭제하시겠습니까?");
-
-    if (confirmed) {
-      // 삭제 로직 수행
-      $.ajax({
-        type: "DELETE",
-        url: "/api/licenses/" +licenseKey,
-
-        success: function(response) {
-          console.log(response);
-          // 삭제 성공 후의 처리
-          window.location.reload();
-        },
-        error: function(error) {
-          console.log(error);
-          // 오류 발생 시의 처리
-        }
-      });
-    }
-  });
-
-});
-
-/*-----------------------------------------------------------------------------------------*/
-
-
-//라이센스 검색창
-
-function filterLicenseTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("license-search");
-  filter = input.value.toUpperCase();
-  table = document.querySelector(".license-table");
-  tr = table.getElementsByTagName("tr");
-
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-function handleSearchKeyPress(event) {
-  if (event.key === "Enter") {
-    filterLicenseTable();
-  }
-}
-
-
-
-/*-------------------------------------------------------------------------------------------------------------*/
-
-// 페이지 로드 시 초기 표시되는 라이센스 리스트 개수
-var licensesPerPage = 6;
-
-// 현재 페이지와 전체 페이지 수를 저장하는 변수
-var currentPage = 1;
-var totalPage;
-
-// 라이센스 리스트 테이블의 모든 행을 숨기는 함수
-function hideAllRows() {
-  var rows = document.querySelectorAll('.license-table tbody tr');
-  rows.forEach(function (row) {
-    row.style.display = 'none';
-  });
-}
-
-// 현재 페이지에 해당하는 행만 보이도록 하는 함수
-function showRowsForCurrentPage() {
-  hideAllRows();
-
-  var startIndex = (currentPage - 1) * licensesPerPage;
-  var endIndex = startIndex + licensesPerPage;
-  var rows = document.querySelectorAll('.license-table tbody tr');
-
-  for (var i = startIndex; i < endIndex && i < rows.length; i++) {
-    rows[i].style.display = '';
-  }
-}
-
-// 이전 페이지로 이동하는 함수
-function goToPrevPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    showRowsForCurrentPage();
-  }
-}
-
-// 다음 페이지로 이동하는 함수
-function goToNextPage(event) {
-  if (currentPage < totalPage) {
-    currentPage++;
-    showRowsForCurrentPage();
-  }
-
-  // 페이지 이동을 막기 위해 이벤트의 기본 동작을 막음
-  if (event) {
-    event.preventDefault();
-  }
-}
-
-// 페이지 로드 시 초기 설정
-document.addEventListener('DOMContentLoaded', function () {
-  var rows = document.querySelectorAll('.license-table tbody tr');
-  totalPage = Math.ceil(rows.length / licensesPerPage);
-
-  // 페이지 로드 시 처음에는 첫 페이지의 행들만 보이도록 설정
-  showRowsForCurrentPage();
-});
-
-// 이전 버튼 클릭 시 이벤트 핸들러
-document.querySelector('.prev-button').addEventListener('click', function () {
-  goToPrevPage();
-});
-
-// 다음 버튼 클릭 시 이벤트 핸들러
-document.querySelector('.next-button').addEventListener('click', function () {
-  goToNextPage();
-});

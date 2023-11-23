@@ -10,6 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.all.min.js"></script>
+
 </head>
 <body>
 
@@ -50,8 +57,8 @@
   </ul>
   <div class="sidebar-item" onclick="toggleSubChapters('sub-chapters4')">User Accounts</div>
   <ul class="sub-chapters" id="sub-chapters4">
-    <li onclick="showSubContent(6, 'User Accounts', 'View All Clients')">View All User Accounts</li>
-    <li onclick="showSubContent(7, 'User Accounts', 'View All Clients')">Add User Accounts</li>
+    <li onclick="showSubContent(6, 'User Accounts', 'View All User Accounts')">View All User Accounts</li>
+    <li onclick="showSubContent(7, 'User Accounts', 'Edit User Accounts')">Edit User Accounts</li>
   </ul>
 </div>
 
@@ -75,134 +82,17 @@
     </div>
 
     <div class="table-container">
-      <table class="data-table">
-        <thead>
-        <tr>
-          <th>UserName</th>
-          <th>Registered Date</th>
-          <th>Phone Number</th>
-          <th>Country</th>
-          <th>Role</th>
-          <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 여기에 데이터를 동적으로 추가할 예정 -->
-        </tbody>
-      </table>
     </div>
 
   </div>
   <div id="content-2" style="display: none;"> <!-- 처음에는 숨김 처리 -->
-    <!-- 목차 2에 대한 콘텐츠 -->
-    <h2>Download Software</h2>
-    <p>이곳에 목차 2에 대한 내용을 작성하세요.</p>
   </div>
   <!-- 하위 목차에 대한 콘텐츠 -->
   <div id="sub-content-1" class="sub-content" style="display: none;">
-    <h2>View All Products</h2>
-    <p>Custom Text 1의 내용을 여기에 작성하세요.</p>
   </div>
   <div id="sub-content-2" class="sub-content" style="display: none;">
-    <h2>Add new Products</h2>
-    <p>Custom Text 2의 내용을 여기에 작성하세요.</p>
   </div>
   <div id="sub-content-3" class="sub-content" style="display: none;">
-    <h2 >License List</h2>
-    <div class="search-container">
-      <input type="text" id="license-search" placeholder="검색할 키를 입력하세요" onkeydown="handleSearchKeyPress(event)">
-      <button class="search-button" onclick="filterLicenseTable()">검색</button>
-    </div>
-    <table class="license-table">
-      <thead>
-      <tr>
-        <th>License Key</th>
-        <th>Product Name</th>
-        <th>Days Validity</th>
-        <th>Max No Users</th>
-        <th>User Count</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <!-- 동적으로 채워질 내용 -->
-
-      <tr th:each="licenseInfo : ${licenseInfoList}">
-        <td th:text="${licenseInfo.licenseKey}"></td>
-        <td th:text="${licenseInfo.productName}"></td>
-        <td th:text="${licenseInfo.daysValidity}"></td>
-        <td th:text="${licenseInfo.maxNoUsers}"></td>
-        <td th:text="${licenseInfo.userCount}"></td>
-        <td th:text="${licenseInfo.status}"></td>
-        <td>
-          <form class="delete-form" th:attr="data-licenseId=${licenseInfo.licenseKey}" th:action="'/api/licenses/delete-license/' + ${licenseInfo.licenseKey}" method="post">
-            <button type="submit" class="delete-button">Delete</button>
-          </form>
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-    <div class="pagination">
-      <button class="prev-button">이전</button>
-      <button class="next-button">다음</button>
-    </div>
-
-  </div>
-  <div id="sub-content-4" class="sub-content" style="display: none;">
-    <h2>Add License</h2>
-    <form>
-      <div class="form-group">
-        <label for="product">Product</label>
-        <select id="product" name="product" >
-          <option value="product1">Product 1</option>
-          <option value="product2">Product 2</option>
-          <!-- 원하는 제품 항목 추가 -->
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="licenseKey">License Key</label>
-        <select id="licenseKey" name="licenseKey">
-          <option value="key1">Key 1</option>
-          <option value="key2">Key 2</option>
-          <!-- 원하는 라이선스 키 항목 추가 -->
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="daysValidity">Days Valid</label>
-        <select id="daysValidity" name="daysValidity">
-          <option value="30">30 Days</option>
-          <option value="60">60 Days</option>
-          <!-- 원하는 유효 기간 항목 추가 -->
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="maxUsers">Max Users</label>
-        <select id="maxUsers" name="maxUsers">
-          <option value="1">1 User</option>
-          <option value="5">5 Users</option>
-          <!-- 원하는 최대 사용자 항목 추가 -->
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="status-license">Status</label>
-        <select id="status-license" name="status">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-          <!-- 원하는 상태 항목 추가 -->
-        </select>
-      </div>
-
-      <!-- 버튼 추가 -->
-      <button type="button" id="btn-l-c" class="cancelButton">Cancel</button>
-      <button type="submit" id="btn-l-s" class="submitButton">Submit</button>
-    </form>
   </div>
 
   <div id="content-3" style="display: none;"> <!-- 처음에는 숨김 처리 -->
@@ -216,77 +106,10 @@
     <p>이곳에 목차 4에 대한 내용을 작성하세요.</p>
   </div>
   <div id="content-5" style="display: none;"> <!-- 처음에는 숨김 처리 -->
-    <!-- 목차 4에 대한 콘텐츠 -->
-    <h2>Payment History</h2>
-    <!-- 검색 폼 -->
-    <form th:action="@{/payment-history}" method="get">
-      <div class="search-container">
-        <input type="text" placeholder="검색할 이름을 입력하세요">
-        <button class="search-button">검색</button>
-      </div>
-    </form>
-
-    <!-- 결제 이력 테이블 -->
-    <table class="data-table">
-      <thead>
-      <tr>
-        <th>거래 일자</th>
-        <th>거래 금액</th>
-        <th>결제 방법</th>
-        <th>거래 상태</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- 결제 이력 데이터를 동적으로 표시 -->
-      <!--            <tr th:each="paymentHistory : ${paymentHistoryList}">-->
-      <!--                <td th:text="${#dates.format(paymentHistory.transactionDate, 'yyyy-MM-dd')}"></td>-->
-      <!--                <td th:text="${paymentHistory.amount}"></td>-->
-      <!--                <td th:text="${paymentHistory.paymentMethod}"></td>-->
-      <!--                <td th:text="${paymentHistory.status}"></td>-->
-      <!--            </tr>-->
-      </tbody>
-    </table>
   </div>
   <div id="sub-content-5" class="sub-content" style="display: none;">
-    <h2>View All Clients</h2>
-    <div class="search-group">
-      <div class="search-container2">
-        <input type="text" placeholder="검색할 이름을 입력하세요">
-        <button class="search-button">검색</button>
-      </div>
-      <div class="search-container2">
-        <input type="text" placeholder="검색할 이메일을 입력하세요">
-        <button class="search-button">검색</button>
-      </div>
-      <div class="search-container2">
-        <input type="text" placeholder="검색할 키를 입력하세요">
-        <button class="search-button">검색</button>
-      </div>
-    </div>
+
     <div class="user-table-container">
-      <table class="data-table">
-        <thead>
-        <tr>
-          <th>Company Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>Country</th>
-          <th>Place</th>
-          <th>CND</th>
-          <th>HardWareID</th>
-          <th>License KEY</th>
-          <th>User</th>
-          <th>Activated</th>
-          <th>Status</th>
-          <th>Date Registered</th>
-          <th>Expriy Date</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 여기에 데이터를 동적으로 추가할 예정 -->
-        </tbody>
-      </table>
     </div>
 
 
@@ -318,12 +141,14 @@
         <td th:text="${user.status}"></td>
         <!-- Add other fields as needed -->
         <td>
+          <div class="button-group">
           <form class="delete-form" th:attr="data-userId=${user.id}" th:action="'/api/users/' + ${user.id}" method="post">
             <button type="submit" class="delete-button">Delete</button>
           </form>
           <form class="edit-form" th:attr="data-userId=${user.id}" th:action="'/api/users/' + ${user.id}" method="post">
             <button type="button" class="edit-button" th:onclick="'editUser(\'' + ${user.id} + '\')'">Edit</button>
           </form>
+          </div>
         </td>
       </tr>
       </tr>
@@ -341,7 +166,7 @@
     <form id="editUserForm" method="post">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" data-field="name" placeholder="Enter username" required>
+        <input type="text" id="username" name="username" data-field="name" placeholder="Enter username" required value="김동희">
       </div>
 
       <div class="form-group">
@@ -352,7 +177,7 @@
       <div class="form-group">
         <label for="role">Role</label>
         <select id="role" name="role" data-field="role">
-          <option value="administrator">admin</option>
+          <option value="admin">admin</option>
           <option value="user">user</option>
           <!-- 원하는 역할 항목 추가 -->
         </select>

@@ -7,9 +7,13 @@ import com.example.demo.dataclass.UserEntity;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.MemberService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,7 @@ import java.security.SecureRandom;
 
 
 import java.security.Security;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +50,8 @@ public class MemberController {
     private MemberRepository memberRepository;
     @Autowired
     private UserRepository userRepository;
-
+    @PersistenceContext
+    private EntityManager entityManager;
     @GetMapping("generateRandomMixedValue")
     public String generateRandomMixedValue(Model model, HttpSession session,@RequestParam("months") int months){
         String userEmail = (String) session.getAttribute("loginEmail");
@@ -63,12 +69,35 @@ public class MemberController {
         String randomValue = memberService.generateAndSaveRandomValueWithExpiration(userEmail,months);
         model.addAttribute("randomValue",randomValue);
 
+        LocalDateTime subscriptionTime = LocalDateTime.now();
+        memberService.saveSubscriptionTime(userEmail, subscriptionTime);
 
         String message = months + "달 구독 완료";
         model.addAttribute("message",message);
         return "sub";
     }
 
+//    @Transactional
+//    public void saveSubscriptionTime(String userEmail, LocalDateTime subscriptionTime) {
+//        try {
+//            MemberEntity memberEntity = memberRepository.findByMemberEmail(userEmail)
+//                    .orElseThrow(() -> new RuntimeException("Member not found"));
+//
+//            memberEntity.setSubscriptionTime(subscriptionTime);
+//            entityManager.setFlushMode(FlushModeType.AUTO); // 또는 COMMIT
+//            entityManager.flush();
+//            memberRepository.save(memberEntity);
+//        } catch (Exception e) {
+//            e.printStackTrace(); // 또는 로그로 기록
+//        }
+//
+//    }
+
+    @GetMapping("/member/main")
+    public String mainForm(){
+        return "main";
+
+    }
 
     //회원가입 페이지 출력 요청
     @GetMapping("/member/save")
@@ -77,6 +106,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/save")
+    @Transactional
     public String save(@ModelAttribute MemberDTO memberDTO)
     {
         System.out.println("MemberController.save");

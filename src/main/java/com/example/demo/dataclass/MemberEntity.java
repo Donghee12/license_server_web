@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -23,6 +24,7 @@ public class MemberEntity {
     @Column
     private String memberPassword;
 
+    private LocalDateTime subscriptionTime;
     @Column
     private String randomMixedValue;
 
@@ -35,6 +37,14 @@ public class MemberEntity {
     @OneToOne(mappedBy = "memberEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity user;
 
+    @Getter
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_info_id", referencedColumnName = "id", unique = true)
+    private ClientInfo clientInfo;
+
+    public void setClientInfo(ClientInfo clientInfo) {
+        this.clientInfo = clientInfo;
+    }
 
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
@@ -59,4 +69,18 @@ public class MemberEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+    public UserEntity getUserEntity() {
+        return user;
+    }
+
+
+    public Date getSubscriptionExpirationDate() {
+        // 멤버 엔터티에서 구독 만료 날짜 가져오기
+        MemberEntity memberEntity = new MemberEntity();
+        Date subscriptionExpirationDate = memberEntity.getSubscriptionExpirationDate();
+
+        // LocalDateTime을 Date로 변환
+        return subscriptionExpirationDate;
+    }
+
 }

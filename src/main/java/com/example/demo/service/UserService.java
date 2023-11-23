@@ -1,12 +1,10 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dataclass.LicenseInfo;
-import com.example.demo.dataclass.MemberEntity;
-import com.example.demo.dataclass.UserDTO;
-import com.example.demo.dataclass.UserEntity;
+import com.example.demo.dataclass.*;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.apache.catalina.User;
 import org.slf4j.Logger;
@@ -53,19 +51,24 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long userId, String newUsername, String newRole, String newStatus) {
-        // 사용자 엔티티 조회
-        UserEntity userEntity = userRepository.findById(userId).orElse(null);
+    public UserEntity updateUser(Long userId, UserUpdateRequest updateRequest) {
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        if (userEntity != null) {
-            // 연관된 부모 엔티티(MemberEntity)를 수정하지 않음
-
-            // 자식 엔티티(UserEntity)를 수정
-            userEntity.setName(newUsername);  // 새 사용자 이름 값 설정 등 필요한 수정 작업 수행
-            userEntity.setRole(newRole);          // 새 역할 값 설정 등 필요한 수정 작업 수행
-            userEntity.setStatus(newStatus);      // 새 상태 값 설정 등 필요한 수정 작업 수행
-            userRepository.save(userEntity);      // 자식 엔티티 저장
+        if (updateRequest.getUsername() != null) {
+            userEntity.setName(updateRequest.getUsername());
         }
+
+        if (updateRequest.getRole() != null) {
+            userEntity.setRole(updateRequest.getRole());
+        }
+
+        if (updateRequest.getStatus() != null) {
+            userEntity.setStatus(updateRequest.getStatus());
+        }
+
+        // 업데이트된 사용자 엔터티 저장
+        return userRepository.save(userEntity);
     }
 
     private String getNameFromEmail(String email) {

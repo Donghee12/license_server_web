@@ -81,6 +81,13 @@ function showUserList() {
 document.querySelector('#sub-chapters2 li:nth-child(1)').addEventListener('click', function () {
     location.href = '/admin/licenses_info';
 });
+document.querySelector('#sub-chapters2 li:nth-child(2)').addEventListener('click', function () {
+    location.href = '/admin/licenses_info';
+});
+document.querySelector('#sub-chapters3 li:nth-child(1)').addEventListener('click', function () {
+    console.log("Clicked on clients link");
+    location.href = '/admin/clients_info';
+});
 
 //---------------------------------------------------------------------------------------------//
 
@@ -102,23 +109,9 @@ document.querySelectorAll('.sidebar-item').forEach(function (item) {
     });
 });
 
-
-
-// 페이지 로드 시 초기 설정
-document.addEventListener('DOMContentLoaded', function () {
-    var rows = document.querySelectorAll('.data-table tbody tr');
-    totalPage = Math.ceil(rows.length / UserPerPage);
-
-    // 초기 화면을 유저 리스트로 설정
-    showUserList();
-
-    // 페이지 로드 시 처음에는 첫 페이지의 행들만 보이도록 설정
-    showRowsForCurrentPage();
-
-});
-
+/*-------------------------------------------------------------------------------------------------------------------*/
 // 페이지 로드 시 초기 표시되는 유저리스트 개수
-var UserPerPage = 6;
+var UserPerPage = 4;
 
 // 현재 페이지와 전체 페이지 수를 저장하는 변수
 var currentPage = 1;
@@ -168,7 +161,7 @@ function goToNextPage(event) {
 
 // 페이지 로드 시 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
-    var rows = document.querySelectorAll('.license-table tbody tr');
+    var rows = document.querySelectorAll('.data-table tbody tr');
     totalPage = Math.ceil(rows.length / UserPerPage);
 
     // 페이지 로드 시 처음에는 첫 페이지의 행들만 보이도록 설정
@@ -190,6 +183,11 @@ document.querySelector('.next-button').addEventListener('click', function () {
 
 
 /*-----------------------------------------------유저 삭제 코드 ---------------------------------------------------------*/
+// 현재 경로
+var apiUrl = '/api/users/delete/';
+
+// 새로운 경로
+var updatedApiUrl = '/api/users/delete/';
 $(document).ready(function() {
     $(".delete-form").submit(function(event) {
         event.preventDefault();
@@ -201,7 +199,7 @@ $(document).ready(function() {
             // 삭제 로직 수행
             $.ajax({
                 type: "DELETE",
-                url: "/api/users/" + userId,
+                url: updatedApiUrl + userId,
 
                 success: function(response) {
                     console.log(response);
@@ -238,9 +236,75 @@ function editUser(userId) {
             showSubContent(7);
             var smallContentTitle = document.getElementById('small-content-title');
             smallContentTitle.textContent = 'User Accounts > Edit User Accounts';
+
+
+            // userId를 전역 변수로 설정
+            window.userId = user.id;
         } else {
             console.log("User object is empty or undefined.");
         }
     });
 }
 
+/*-----------------------------------------------유저 수정 작업 ---------------------------------------------------------*/
+// 사용자 정보 수정을 위한 함수
+// 수정 확인 버튼 클릭 시 호출되는 함수
+function submitEdit() {
+    // "정말로 수정하시겠습니까?" 확인 창 표시
+    Swal.fire({
+        title: '정말로 수정하시겠습니까?',
+        text: '이 작업은 취소할 수 없습니다.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '예, 수정합니다.',
+        cancelButtonText: '아니오, 취소합니다.'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 확인 버튼을 눌렀을 때의 동작
+            var userId = window.userId;
+            var updatedInfo = {
+                username: document.getElementById('username').value || 'No Name',
+                email: document.getElementById('email').value,
+                role: document.getElementById('role').value,
+                status: document.getElementById('status-user').value
+            };
+
+            // 서버에 PUT 요청 보내기
+            $.ajax({
+                type: 'PUT',
+                url: '/api/users/update/' + userId,
+                contentType: 'application/json',
+                data: JSON.stringify(updatedInfo),
+                success: function(response) {
+                    console.log(response);
+
+                    // SweetAlert2로 성공 메시지 표시
+                    Swal.fire({
+                        icon: 'success',
+                        title: '회원 수정 완료',
+                        text: '회원 정보가 성공적으로 수정되었습니다.',
+                    }).then(() => {
+                        // 성공 메시지를 확인한 후 화면을 다시 로드
+                        location.reload();
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+
+                    // 오류 메시지를 SweetAlert2로 표시
+                    Swal.fire({
+                        icon: 'error',
+                        title: '오류',
+                        text: '회원 수정 중 오류가 발생했습니다.',
+                    });
+                }
+            });
+        }
+    });
+}
+
+
+function cancelEdit() {
+    // 이전 목록으로 돌아가기
+    showUserList();
+}
