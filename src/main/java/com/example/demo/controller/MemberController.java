@@ -77,22 +77,6 @@ public class MemberController {
         return "sub";
     }
 
-//    @Transactional
-//    public void saveSubscriptionTime(String userEmail, LocalDateTime subscriptionTime) {
-//        try {
-//            MemberEntity memberEntity = memberRepository.findByMemberEmail(userEmail)
-//                    .orElseThrow(() -> new RuntimeException("Member not found"));
-//
-//            memberEntity.setSubscriptionTime(subscriptionTime);
-//            entityManager.setFlushMode(FlushModeType.AUTO); // 또는 COMMIT
-//            entityManager.flush();
-//            memberRepository.save(memberEntity);
-//        } catch (Exception e) {
-//            e.printStackTrace(); // 또는 로그로 기록
-//        }
-//
-//    }
-
     @GetMapping("/member/main")
     public String mainForm(){
         return "main";
@@ -231,6 +215,14 @@ public class MemberController {
         model.addAttribute("userList", userList);
         return "admin/user_info";
     }
+
+    @GetMapping("/admin/licenses_info")
+    public String loadMainPage(Model model) {
+        List<MemberEntity> memberList = memberRepository.findAll();
+        model.addAttribute("members", memberList);
+        return "admin/licenses_info";
+    }
+
 }
 
 

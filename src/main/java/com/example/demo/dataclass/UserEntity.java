@@ -34,8 +34,7 @@ public class UserEntity {
     @JoinColumn(name = "member_id", unique = true)
     private MemberEntity memberEntity;
 
-    @OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ClientInfo clientInfo;
+
 
 
     public static UserEntity fromMemberEntity(MemberEntity memberEntity) {

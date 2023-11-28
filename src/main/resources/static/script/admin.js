@@ -82,8 +82,6 @@ document.querySelector('#sub-chapters3 li:nth-child(1)').addEventListener('click
 });
 // 라이센스 리스트 버튼 클릭 시 이벤트 핸들러
 document.getElementById('license-list-button').addEventListener('click', function () {
-  // 라이센스 리스트 버튼 클릭할 때 호출되는 함수
-
   // 페이지의 URL을 변경 (history.pushState 사용)
   history.pushState({}, 'License List', '/admin/licenses_info');
 
@@ -106,10 +104,23 @@ document.getElementById('license-list-button').addEventListener('click', functio
 
 // 클라이언트 수 버튼 클릭 시 이벤트 핸들러 (예시)
 document.getElementById('client-count-button').addEventListener('click', function () {
-  // 클라이언트 수 목차로 이동
-  showSubContent(6);
-  var smallContentTitle = document.getElementById('small-content-title');
-  smallContentTitle.textContent = 'Clients > View All Clients';
+  // 페이지의 URL을 변경 (history.pushState 사용)
+  history.pushState({}, 'User Info', '/admin/user_info');
+
+  // 변경된 URL에 따라 작업 수행
+  showUserList();
+
+  function  showUserList() {
+    // License List 목차로 이동
+    showSubContent(6);
+    var smallContentTitle = document.getElementById('small-content-title');
+    smallContentTitle.textContent = 'User > View All Usr Accounts';
+
+    location.reload();
+  }
+
+  // 페이지의 상태를 새로 고침하지 않고 업데이트
+  e.preventDefault();  // 이벤트의 기본 동작을 중단
 });
 
 

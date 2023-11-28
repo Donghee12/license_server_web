@@ -27,20 +27,13 @@ public class MemberDTO {
     private String memberPassword;
     private String randomValue;
 
-    public static MemberDTO toMemberDTO(MemberEntity memberEntity){
+    private int subscriptionMonths;
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId(memberEntity.getId());
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDTO.setRandomValue(memberEntity.getRandomMixedValue());
         return memberDTO;
-    }
-    // 게터 및 세터 추가
-    // 클라이언트 정보 추가
-    @Getter
-    private ClientInfoDTO clientInfo;
-
-    public void setClientInfo(ClientInfoDTO clientInfo) {
-        this.clientInfo = clientInfo;
     }
 }

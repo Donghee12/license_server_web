@@ -1,25 +1,20 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dataclass.ClientInfo;
 import com.example.demo.dataclass.MemberDTO;
 import com.example.demo.dataclass.MemberEntity;
 import com.example.demo.dataclass.UserEntity;
-import com.example.demo.repository.ClientInfoRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.FlushModeType;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Member;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -111,7 +106,7 @@ public class MemberService {
 
         LocalDateTime expirationTime = LocalDateTime.now().plus(months,ChronoUnit.MONTHS);
 
-        saveRandomValueWithExpiration(userEmail,randomValue,expirationTime);
+        saveRandomValueWithExpiration(userEmail,randomValue,expirationTime,months);
         updateRandomValue(userEmail,randomValue);
 
         return randomValue;
@@ -123,17 +118,42 @@ public class MemberService {
 
     }
 
-    private void saveRandomValueWithExpiration(String userEmail, String randomValue, LocalDateTime expirationTime) {
+    private void saveRandomValueWithExpiration(String userEmail, String randomValue, LocalDateTime expirationTime,int months) {
         MemberEntity memberEntity = memberRepository.findByMemberEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("Member no found"));
 
         memberEntity.setRandomMixedValue(randomValue);
         memberEntity.setSubscriptionExpirationTime(expirationTime);
+        memberEntity.setSubscriptionMonths(months); // subscriptionMonths 저장 추가
+
+        if (months == 3) {
+            memberEntity.setProductName("ProductB");
+        } else if (months == 1) {
+            memberEntity.setProductName("ProductA");
+        }
 
         memberRepository.save(memberEntity);
 
     }
+    public List<MemberEntity> findByProductName(String productName) {
+        return memberRepository.findByProductName(productName);
+    }
+    public void updateAndCalculateUserCount() {
+        List<MemberEntity> productAMembers = findByProductName("ProductA");
+        List<MemberEntity> productBMembers = findByProductName("ProductB");
 
+        // 각각의 User_count 계산
+        int productAUserCount = productAMembers.size();
+        int productBUserCount = productBMembers.size();
+
+        // 각 MemberEntity에 User_count 설정
+        productAMembers.forEach(memberEntity -> memberEntity.setUserCount(productAUserCount));
+        productBMembers.forEach(memberEntity -> memberEntity.setUserCount(productBUserCount));
+
+        // 저장
+        memberRepository.saveAll(productAMembers);
+        memberRepository.saveAll(productBMembers);
+    }
     @Transactional
     public void updateRandomValue(String userEmail, String randomValue) {
 

@@ -11,57 +11,57 @@
 </head>
 <body>
 <form action="/member/update" method="post">
-  <div class="Rectangle2"></div>
-  <div class="text-box" style="left: 31px; top: 220px;">회원정보 관리</div>
-  <div class="text-box" style="left: 31px; top: 274px;">라이센스 관리</div>
-  <div class="text-box" style="left: 31px; top: 166px;">마이페이지</div>
-  <div class="Rectangle35"></div>
-  <div class="Group24" style="width: 1016px; height: 568px; left: 380px; top: 156px; position: absolute">
-    <div class="Group1" style="width: 1016px; height: 568px; left: 0px; top: 0px; position: absolute">
+<div class="Rectangle2"></div>
+<div class="text-box" style="left: 31px; top: 220px;"><a href="/member/update">회원정보 관리</a></div>
+  <div class="text-box" style="left: 31px; top: 263px;"><a href="/member/downloadmain">라이센스 관리</a></div>
+<div class="text-box" style="left: 31px; top: 166px;">마이페이지</div>
+<div class="Rectangle35"></div>
+<div class="Group24" style="width: 1016px; height: 568px; left: 380px; top: 156px; position: absolute">
+  <div class="Group1" style="width: 1016px; height: 568px; left: 0px; top: 0px; position: absolute">
 
-      <div class="Rectangle1"></div>
+    <div class="Rectangle1"></div>
 
-      <div class="infoText" style="left: 28px; top: 33%;">구독정보</div>
+    <div class="infoText" style="left: 28px; top: 33%;">구독정보</div>
 
-      <div class="subText">
-        <input type="text" th:value="${subscriptionTime}" readonly>
-      </div>
+    <div class="subText">
+      <input type="text" th:value="${subscriptionTime}" readonly>
+    </div>
 
-      <div class="EmailText">
-        <input type = "text" th:value="${updateMember.memberEmail}"
-               name="memberEmail" readonly>
-      </div>
-      <div class="Line15"></div>
-      <!--<div class="Rectangle34625594"></div>-->
-      <div class="infoText" style="left: 29px; top: 146px;">비밀번호</div>
-      <div class="passwordText">
-        <input type = "text" th:value="${updateMember.memberPassword}"
-               name="memberPassword">
-      </div>
-      <div class="Line14"></div>
-      <div class="Rectangle34625593"></div>
-      <div class="infoText" style="left: 28px; top: 17%;">이메일</div>
+    <div class="EmailText">
+    <input type = "text" th:value="${updateMember.memberEmail}"
+           name="memberEmail" readonly>
+    </div>
+    <div class="Line15"></div>
+    <!--<div class="Rectangle34625594"></div>-->
+    <div class="infoText" style="left: 29px; top: 146px;">비밀번호</div>
+    <div class="passwordText">
+      <input type = "text" th:value="${updateMember.memberPassword}"
+             name="memberPassword">
+    </div>
+    <div class="Line14"></div>
+    <div class="Rectangle34625593"></div>
+    <div class="infoText" style="left: 28px; top: 17%;">이메일</div>
 
 
-      <div class="pageTitle">사용자 정보 수정</div>
-      <div class="ButtonLogin">
-        <div class="InputPassword">
-          <input type="submit" value="정보수정">
-        </div>
+    <div class="pageTitle">사용자 정보 수정</div>
+    <div class="ButtonLogin">
+      <div class="InputPassword">
+        <input type="submit" value="정보수정">
       </div>
     </div>
-    <div class="Line14" style="width: 40%; height: 0px; left: 28px; top: 39%; position: absolute; border: 1px #DBCFCF solid"></div>
   </div>
-  <div class="Line6" style="width: 240.01px; height: 0px; left: 17px; top: 202.25px; position: absolute; border: 1px black solid"></div>
-  <header class="header">
-    <div class="var">
-      <h1 class="NINJA_H1"><a href="/member/main">NINJA</a></h1>
-      <a class="service" href="#">서비스</a>
-      <a class="service" href="/member/downloadmain">제품</a>
-    </div>
-    <p style="margin-left: 70%;" th:text="${session.loginEmail}"></p>
-    <a class="service2" href="/member/logout">로그아웃</a>
-  </header>
+  <div class="Line14" style="width: 40%; height: 0px; left: 28px; top: 39%; position: absolute; border: 1px #DBCFCF solid"></div>
+</div>
+<div class="Line6" style="width: 240.01px; height: 0px; left: 17px; top: 202.25px; position: absolute; border: 1px black solid"></div>
+<header class="header">
+  <div class="var">
+    <a href="/member/main"><h1 class="NINJA_H1">NINJA</h1></a>
+    <a class="service" href="#">서비스</a>
+    <a class="service" href="/member/downloadmain">제품</a>
+  </div>
+  <a href="/member/update" style="margin-left: 70%;" th:text="${session.loginEmail}"></a>
+  <a class="service2" href="/member/logout">로그아웃</a>
+</header>
 </form>
 </body>
 </html>

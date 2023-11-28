@@ -10,11 +10,13 @@
 
 </head>
 <body>
+
 <header>
   <div class="var">
-    <h1 class="NINJA_H1">NINJA</h1>
+    <a href="/member/index"><h1 class="NINJA_H1">NINJA</h1></a>
     <a class="service" href="#">서비스</a>
-    <a class="service" href="/member/downloadmain">제품</a>
+    <a class="service" href="/member/login"
+       onclick="showAlert()">제품</a>
   </div>
   <nav>
     <a href="/member/login"><span>로그인/가입</span></a>
@@ -23,50 +25,53 @@
 
 <section class="section1">
   <div class="section1_Textbox">
-    <h2 class="section1h1">라이센스를 <br>
-      편하게 관리하세요</h2>
-    <div class="section1_text">
-      NINJA 에서 좀더 쉽게 자신의 License를 편하게 관리해 보세요
-    </div>
-    <div class="section1_button">
-      <a class="Subscribe" href="/member/sub">Subscribe</a>
-    </div>
+  <h2 class="section1h1">라이센스를 <br>
+    편하게 관리하세요</h2>
+  <div class="section1_text">
+    NINJA 에서 좀더 쉽게 자신의 License를 편하게 관리해 보세요
+  </div>
+  <div class="section1_button">
+  <a class="Subscribe" href="/member/login"
+     onclick="showAlert()">Subscribe</a>
+  </div>
+
   </div>
 </section>
 <section class="section2">
   <div class="section2_Textbox">
-    <h1 class="section2_h1">NINJA의 새로운 기능</h1>
-    <p class="section2_Text" style="padding-bottom:8%">NINJA 클라이언트를 다운로드 받아보세요</p>
+  <h1 class="section2_h1">NINJA의 새로운 기능</h1>
+  <p class="section2_Text" style="padding-bottom:8%">NINJA 클라이언트를 다운로드 받아보세요</p>
     <div class="downliad">
-      <a href="/member/downloadmain" class="download-button">Download</a>
+    <a href="/member/login" class="download-button"
+       onclick="showAlert()">Download</a>
     </div>
   </div>
 </section>
 <section class ="section3">
   <div class="section3_Textbox">
-    <h2 class="section3h2">HOW it works</h2>
-    <div class="section3text">Businesses generally promote their brand, products, and <br>
-      services by identifying audience.</div>
+  <h2 class="section3h2">HOW it works</h2>
+  <div class="section3text">Businesses generally promote their brand, products, and <br>
+    services by identifying audience.</div>
   </div>
   <div class="Box_cantinar">
-    <div class="Box1">
-      <div class="Box_1">
+  <div class="Box1">
+    <div class="Box_1">
       <span class="material-symbols-outlined" style="font-size: 60px;">
       alarm_on
       </span>
-      </div>
-      <h2 class="Box_h2">알람 및 리마인더</h2>
-      <p>라이센스 만료일 이전에 경고 메시지나 이메일 알림</p>
     </div>
-    <div class="Box2">
-      <div class="Box_2">
+    <h2 class="Box_h2">알람 및 리마인더</h2>
+    <p>라이센스 만료일 이전에 경고 메시지나 이메일 알림</p>
+  </div>
+  <div class="Box2">
+    <div class="Box_2">
       <span class="material-symbols-outlined" style="font-size: 60px; color:#964b00;">
       event
       </span>
-      </div>
-      <h2 class="Box_h2">실시간 라이선스 관리</h2>
-      <p>라이센스 만료일,라이센스 키 실시간 파악</p>
     </div>
+    <h2 class="Box_h2">실시간 라이선스 관리</h2>
+    <p>라이센스 만료일,라이센스 키 실시간 파악</p>
+  </div>
     <div class="Box3">
       <div class="Box_3">
       <span class="material-symbols-outlined" style="font-size: 60px; color:#1835D0;">
@@ -80,4 +85,9 @@
 
 </section>
 </body>
+<script>
+        function showAlert() {
+            alert("로그인 후 이용해 주세요");
+        }
+    </script>
 </html>

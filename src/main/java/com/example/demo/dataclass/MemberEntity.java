@@ -37,20 +37,18 @@ public class MemberEntity {
     @OneToOne(mappedBy = "memberEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserEntity user;
 
-    @Getter
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_info_id", referencedColumnName = "id", unique = true)
-    private ClientInfo clientInfo;
+    @Column(name = "product_name")
+    private String productName;
 
-    public void setClientInfo(ClientInfo clientInfo) {
-        this.clientInfo = clientInfo;
-    }
+    @Transient // 데이터베이스에 저장하지 않는 필드
+    private int userCount;
 
+    private String Status;
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
-
+        memberEntity.setSubscriptionMonths(memberDTO.getSubscriptionMonths());
         // UserEntity 에도 저장
         UserEntity userEntity = UserEntity.fromMemberEntity(memberEntity);
         memberEntity.setUser(userEntity);
@@ -74,13 +72,14 @@ public class MemberEntity {
     }
 
 
-    public Date getSubscriptionExpirationDate() {
-        // 멤버 엔터티에서 구독 만료 날짜 가져오기
-        MemberEntity memberEntity = new MemberEntity();
-        Date subscriptionExpirationDate = memberEntity.getSubscriptionExpirationDate();
 
-        // LocalDateTime을 Date로 변환
-        return subscriptionExpirationDate;
+    public Date getSubscriptionExpirationDate() {
+        if (subscriptionExpirationTime != null) {
+            // LocalDateTime을 Date로 변환
+            return java.sql.Timestamp.valueOf(subscriptionExpirationTime);
+        } else {
+            return null;
+        }
     }
 
 }

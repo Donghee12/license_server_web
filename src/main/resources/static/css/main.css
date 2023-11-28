@@ -18,13 +18,13 @@ header {
 
 
 p {
-    font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
 }
 
 a {
-    font-family: 'Noto Sans KR', sans-serif;
-    color: black;
-    text-decoration: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+  text-decoration: none;
 }
 
 .var {
@@ -56,7 +56,7 @@ header a, header p {
     margin-left: auto;
 }
 
-.service2{
+.service 2{
     margin-right: 20px;
     text-decoration: none;
     color: black;
@@ -67,53 +67,53 @@ header a, header p {
 /*샐력션 1*/
 
 .section1{
-    width: 100%;
-    height: 500px;
-    margin: 17px 0 0;
-    padding: 116.5px 972px 219.5px 147px;
-    object-fit: contain;
-    background-color: rgba(0, 0, 0, 0);
-}
+      width: 100%;
+      height: 500px;
+      margin: 17px 0 0;
+      padding: 116.5px 972px 219.5px 147px;
+      object-fit: contain;
+      background-color: rgba(0, 0, 0, 0);
+     }
 
 .section1h1{
 
     font-family: 'Noto Sans KR', sans-serif;
-    width: 511px;
-    height: 71px;
-    flex-grow: 0;
-    font-size: 53px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.34;
-    letter-spacing: normal;
-    text-align: left;
-    color: #1a202c;
+     width: 511px;
+      height: 71px;
+      flex-grow: 0;
+      font-size: 53px;
+      font-weight: 800;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.34;
+      letter-spacing: normal;
+      text-align: left;
+      color: #1a202c;
 }
 
 .section1_text{
-    font-family: 'Noto Sans KR', sans-serif;
-    width: 531px;
-    height: 58px;
-    flex-grow: 0;
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2;
-    letter-spacing: normal;
-    text-align: left;
-    color: #4a5568;
+     font-family: 'Noto Sans KR', sans-serif;
+     width: 531px;
+      height: 58px;
+      flex-grow: 0;
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      text-align: left;
+      color: #4a5568;
 }
 
 .section1_Textbox{
-    width: 531px;
-    height: 343px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 75px;
+      width: 531px;
+      height: 343px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 75px;
 
 }
 
@@ -134,15 +134,15 @@ header a, header p {
 }
 
 .Subscribe {
-    color: #FAFAFA;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 600;
-    line-height: 14px;
-    word-wrap: break-word;
-    text-decoration: none; /* 링크의 밑줄 제거 */
-    border: none;
-    outline: none;
+     color: #FAFAFA;
+     font-size: 24px;
+     font-family: Inter;
+     font-weight: 600;
+     line-height: 14px;
+     word-wrap: break-word;
+     text-decoration: none; /* 링크의 밑줄 제거 */
+      border: none;
+         outline: none;
 }
 /*샐력션 1*/
 
@@ -171,39 +171,40 @@ header a, header p {
 }
 
 .section2_Textbox{
-    text-align: center;
+     text-align: center;
 }
 
 .downliad{
     font-family: 'Noto Sans KR', sans-serif;
     margin-left: 18%;
 
-    width: 230.5px;
-    height: 35px;
-    flex-grow: 0;
-    padding: 7px 37.5px 7px 20px;
-    border-radius: 7px;
-    border: solid 1px #053b50;
-    background-color: #fff;
+     width: 230.5px;
+     height: 35px;
+     flex-grow: 0;
+     padding: 7px 37.5px 7px 20px;
+     border-radius: 7px;
+     border: solid 1px;
+     px#053b50;
+     background-color: #fff;
 }
 
 .download-button{
-    padding-left: 5%;
-    width: 302px;
-    height: 30px;
-    flex-grow: 0;
-    font-family: FredokaOne;
-    font-size: 25px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: center;
-    color: #053b50;
-    text-decoration: none; /* 링크의 밑줄 제거 */
-    border: none;
-    outline: none;
+       padding-left: 5%;
+      width: 302px;
+       height: 30px;
+       flex-grow: 0;
+       font-family: FredokaOne;
+       font-size: 25px;
+       font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: center;
+       color: #053b50;
+       text-decoration: none; /* 링크의 밑줄 제거 */
+             border: none;
+                outline: none;
 
 }
 
@@ -222,50 +223,50 @@ header a, header p {
 }
 
 .section3h2{
-    height: 55px;
-    flex-grow: 0;
-    margin: 0 76px 12px 75px;
-    font-family: 'Archivo', sans-serif;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 45px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.22;
-    letter-spacing: normal;
-    text-align: center;
-    color: #060640;
+     height: 55px;
+      flex-grow: 0;
+      margin: 0 76px 12px 75px;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 45px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.22;
+      letter-spacing: normal;
+      text-align: center;
+      color: #060640;
 }
 
 .section3text{
-    height: 56px;
-    flex-grow: 0;
-    margin: 12px 0 0;
-    font-family: AirbnbCerealApp;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.75;
-    letter-spacing: normal;
-    text-align: center;
-    color: #9090a7;
+     height: 56px;
+      flex-grow: 0;
+      margin: 12px 0 0;
+      font-family: AirbnbCerealApp;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.75;
+      letter-spacing: normal;
+      text-align: center;
+      color: #9090a7;
 }
 
 /*샐력션 3*/
 
 .section3_box1{
     width: 370px;
-    height: 308px;
-    flex-grow: 0;
-    margin: 0 30px 0 0;
-    padding: 30px 38px 24px 30px;
-    opacity: 0.04;
-    border-radius: 14px;
-    border-style: solid;
-    border-width: 2px;
-    border-image-source: linear-gradient(130deg, rgba(6, 6, 64, 0) 12%, #060640);
-    border-image-slice: 1;
+      height: 308px;
+      flex-grow: 0;
+      margin: 0 30px 0 0;
+      padding: 30px 38px 24px 30px;
+      opacity: 0.04;
+      border-radius: 14px;
+      border-style: solid;
+      border-width: 2px;
+      border-image-source: linear-gradient(130deg, rgba(6, 6, 64, 0) 12%, #060640);
+      border-image-slice: 1;
 }
 
 .Box_cantinar{
@@ -283,12 +284,12 @@ header a, header p {
 
 .Box_1{
     width: 70px; /* 조정된 너비 */
-    height: 70px; /* 조정된 높이 */
-    flex-grow: 0;
-    margin: 0 232px 40px 0;
-    padding: 15px; /* padding 조정 */
-    border-radius: 10px;
-    background-color: rgba(236, 249, 255, 0.8);
+      height: 70px; /* 조정된 높이 */
+      flex-grow: 0;
+      margin: 0 232px 40px 0;
+     padding: 15px; /* padding 조정 */
+      border-radius: 10px;
+      background-color: rgba(236, 249, 255, 0.8);
 }
 
 .Box2{
@@ -298,27 +299,27 @@ header a, header p {
 }
 
 .Box_2{
-    width: 70px; /* 조정된 너비 */
-    height: 70px; /* 조정된 높이 */
-    flex-grow: 0;
-    margin: 0 232px 40px 0;
-    padding: 15px; /* padding 조정 */
-    border-radius: 10px;
-    background-color: rgba(236, 249, 255, 0.8);
+     width: 70px; /* 조정된 너비 */
+      height: 70px; /* 조정된 높이 */
+      flex-grow: 0;
+     margin: 0 232px 40px 0;
+     padding: 15px; /* padding 조정 */
+     border-radius: 10px;
+     background-color: rgba(236, 249, 255, 0.8);
 }
 
 .Box3{
-    height: 308px;
+height: 308px;
 }
 
 .Box_3{
-    width: 70px; /* 조정된 너비 */
-    height: 70px; /* 조정된 높이 */
-    flex-grow: 0;
-    margin: 0 232px 40px 0;
-    padding: 15px; /* padding 조정 */
-    border-radius: 10px;
-    background-color: rgba(236, 249, 255, 0.8);
+   width: 70px; /* 조정된 너비 */
+      height: 70px; /* 조정된 높이 */
+      flex-grow: 0;
+     margin: 0 232px 40px 0;
+     padding: 15px; /* padding 조정 */
+     border-radius: 10px;
+     background-color: rgba(236, 249, 255, 0.8);
 
 }
 .Box_h2{

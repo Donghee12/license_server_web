@@ -116,33 +116,24 @@
         <table class="license-table">
             <thead>
             <tr>
-                <th>License Key</th>
-                <th>Product Name</th>
-                <th>Days Validity</th>
-                <th>Max No Users</th>
-                <th>User Count</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>라이센스 키</th>
+                <th>제품 이름</th>
+                <th>구독 기간</th>
+                <th>구독한 날짜</th>
+                <th>구독 만료일</th>
+
             </tr>
             </thead>
 
             <tbody>
             <!-- 동적으로 채워질 내용 -->
 
-            <tr th:each="licenseInfo : ${licenseInfoList}">
-                <td th:text="${licenseInfo.licenseKey}"></td>
-                <td th:text="${licenseInfo.productName}"></td>
-                <td th:text="${licenseInfo.daysValidity}"></td>
-                <td th:text="${licenseInfo.maxNoUsers}"></td>
-                <td th:text="${licenseInfo.userCount}"></td>
-                <td th:text="${licenseInfo.status}"></td>
-                <td>
-                    <form class="delete-form" th:attr="data-licenseId=${licenseInfo.licenseKey}" th:action="'/api/licenses/delete-license/'
-                    +${licenseInfo.licenseKey}" method="post">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                </td>
-
+            <tr th:each="memberEntity : ${members}">
+                <td th:text="${memberEntity.randomMixedValue}"></td>
+                <td th:text="${memberEntity.productName}"></td>
+                <td th:text="${memberEntity.subscriptionMonths + '개월'}"></td>
+                <td th:text="${memberEntity.subscriptionTime != null ? #temporals.format(memberEntity.subscriptionTime, 'yyyy-MM-dd') : ''}"></td>
+                <td th:text="${memberEntity.subscriptionExpirationDate != null ? #dates.format(memberEntity.subscriptionExpirationDate, 'yyyy-MM-dd') : ''}"></td>
             </tr>
             </tbody>
         </table>

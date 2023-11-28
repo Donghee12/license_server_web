@@ -11,7 +11,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,900&family=Fredoka:wght@500&family=Gothic+A1:wght@800&family=Noto+Sans+KR:wght@500&family=Orbit&display=swap" rel="stylesheet">
-
 </head>
 <body>
 <div class="mainview">
@@ -29,7 +28,7 @@
     <div class="NinjaTitle">NinJa</div>
   </div>
   <!-- 오른쪽 구독 처리 -->
-  <div class="Group2" style="width: 453px; height: 568px; left: 824px; top: 241px; position: absolute">
+  <div class="Group2">
     <div class="Rectangle2"></div>
     <div class="Free1">FREE</div>
     <div class="LicenseSystemDescription1" th:if ="${message}">
@@ -42,19 +41,15 @@
     <div class="Ninja1">NinJa</div>
   </div>
 </div>
-<div class="Frame57">
-  <div class="menu-item service">서비스<br/></div>
-  <!-- 제품 -->
-  <div class="menu-item product">제품</div>
-  <!-- NINJA -->
-  <div class="Ninja3">NINJA</div>
-  <!-- 로그아웃 -->
-  <div class="menu-item logout">
-    <a href="/member/logout">로그아웃</a>
+<header class="header">
+  <div class="var">
+    <h1 class="NINJA_H1"><a href="/member/main">NINJA</a></h1>
+    <a class="service" href="#">서비스</a>
+    <a class="service" href="/member/downloadmain">제품</a>
   </div>
-  <!-- 로그인 이메일 -->
-  <div class="menu-item login-email" th:text="${session.loginEmail}"></div>
-</div>
+  <a href="/member/update" style="margin-left: 70%;" th:text="${session.loginEmail}"></a>
+  <a class="service2" href="/member/logout">로그아웃</a>
+</header>
 </div>
 </body>
 </html>
