@@ -1,4 +1,10 @@
 /* 상단 바 스타일 */
+.logo-image {
+    /* 필요한 스타일을 추가하세요 */
+    max-width: 100%;
+    height: auto;
+}
+
 .top-bar {
     background-color: #f2f2f2;
     color: #afafaf;
